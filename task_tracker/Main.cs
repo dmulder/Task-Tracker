@@ -1,5 +1,6 @@
 using System;
 using Gtk;
+using Notifications;
 
 namespace task_tracker
 {
@@ -8,7 +9,7 @@ namespace task_tracker
 		public static void Main (string[] args)
 		{
 			Application.Init();
-			StatusIcon icon = StatusIcon.NewFromStock(Stock.MediaPlay);
+			StatusIcon icon = StatusIcon.NewFromStock(Stock.Add);
 			icon.Visible = true;
 			icon.Tooltip = "Task Tracker";
 			icon.PopupMenu += OnStatusIconPopupMenu;
@@ -22,10 +23,27 @@ namespace task_tracker
 			exit.Show();
 			exit.Activated += HandleExit;
 			menu.Append(exit);
+			MenuItem show = new MenuItem("Show");
+			show.Show();
+			show.Activated += HandleShowActivated;
+			menu.Append(show);
 			menu.Popup(null,null,null,3,Gtk.Global.CurrentEventTime);
 		}
 
-		static void HandleExit (object sender, EventArgs e)
+		static void HandleShowActivated (object sender, EventArgs e)
+		{
+			Notification notify = new Notification("Work", "What are you working on?");
+			notify.AddAction("AddTask", "Add Task", HandleAddTask);
+			notify.Show();
+		}
+		
+		static void HandleAddTask(object sender, EventArgs e)
+		{
+			AddTask task = new AddTask();
+			task.Show();
+		}
+
+		static void HandleExit(object sender, EventArgs e)
 		{
 			Application.Quit();
 		}
