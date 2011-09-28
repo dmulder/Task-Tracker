@@ -75,7 +75,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.ComboBox" id="combobox1">
+                  <widget class="Gtk.ComboBox" id="priority">
                     <property name="MemberName" />
                     <property name="IsTextCombo">True</property>
                     <property name="Items" translatable="yes" />
@@ -113,11 +113,18 @@
                 <property name="MemberName" />
                 <property name="ShadowType">In</property>
                 <child>
-                  <widget class="Gtk.TextView" id="textview1">
+                  <widget class="Gtk.Viewport" id="GtkViewport">
                     <property name="MemberName" />
-                    <property name="CanFocus">True</property>
-                    <property name="ShowScrollbars">True</property>
-                    <property name="Text" translatable="yes" />
+                    <property name="ShadowType">None</property>
+                    <child>
+                      <widget class="Gtk.Entry" id="description">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="ShowScrollbars">True</property>
+                        <property name="IsEditable">True</property>
+                        <property name="InvisibleChar">•</property>
+                      </widget>
+                    </child>
                   </widget>
                 </child>
               </widget>

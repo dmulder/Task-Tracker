@@ -16,7 +16,7 @@ namespace task_tracker
 			icon.Visible = true;
 			icon.Tooltip = "Task Tracker";
 			icon.PopupMenu += OnStatusIconPopupMenu;
-			watch = new Timer(10000); //1800000
+			watch = new Timer(5000); //1800000
 			watch.Elapsed += HandleWatchElapsed;
 			watch.Start();
 			Application.Run();
@@ -24,11 +24,13 @@ namespace task_tracker
 
 		static void HandleWatchElapsed (object sender, ElapsedEventArgs e)
 		{
+			watch.Stop();
 			RequestWork();
 		}
 		
 		static void OnStatusIconPopupMenu(object sender, EventArgs e)
 		{
+			watch.Start();
 			Menu menu = new Menu();
 			MenuItem exit = new MenuItem("Exit");
 			exit.Show();
@@ -48,7 +50,6 @@ namespace task_tracker
 		
 		static void RequestWork()
 		{
-			watch.Stop();
 			Notification notify = new Notification("Work", "What are you working on?");
 			notify.AddAction("AddTask", "Add Task", HandleAddTask);
 			notify.Show();
@@ -56,7 +57,9 @@ namespace task_tracker
 		
 		static void HandleAddTask(object sender, EventArgs e)
 		{
-			AddTask task = new AddTask();
+			watch.Interval = 1800000; //30 Minutes
+			watch.Start();
+			AddTask task = new AddTask(false);
 			task.Show();
 		}
 
@@ -64,6 +67,5 @@ namespace task_tracker
 		{
 			Application.Quit();
 		}
-		
 	}
 }
