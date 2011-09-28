@@ -5,7 +5,13 @@ namespace task_tracker
 	public partial class AddTask
 	{
 		private global::Gtk.VBox vbox2;
-		private global::Gtk.Label label1;
+		private global::Gtk.HBox hbox1;
+		private global::Gtk.Label label2;
+		private global::Gtk.Entry summary;
+		private global::Gtk.HBox hbox2;
+		private global::Gtk.Label label3;
+		private global::Gtk.ComboBox combobox1;
+		private global::Gtk.Label label5;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 		private global::Gtk.TextView textview1;
 		private global::Gtk.Button buttonCancel;
@@ -16,7 +22,7 @@ namespace task_tracker
 			global::Stetic.Gui.Initialize (this);
 			// Widget task_tracker.AddTask
 			this.Name = "task_tracker.AddTask";
-			this.Title = global::Mono.Unix.Catalog.GetString ("Add Task");
+			this.Title = global::Mono.Unix.Catalog.GetString ("Add a Task");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Internal child task_tracker.AddTask.VBox
 			global::Gtk.VBox w1 = this.VBox;
@@ -27,14 +33,68 @@ namespace task_tracker
 			this.vbox2.Name = "vbox2";
 			this.vbox2.Spacing = 6;
 			// Container child vbox2.Gtk.Box+BoxChild
-			this.label1 = new global::Gtk.Label ();
-			this.label1.Name = "label1";
-			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Enter the task you are currently working on.");
-			this.vbox2.Add (this.label1);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.label1]));
+			this.hbox1 = new global::Gtk.HBox ();
+			this.hbox1.Name = "hbox1";
+			this.hbox1.Spacing = 6;
+			// Container child hbox1.Gtk.Box+BoxChild
+			this.label2 = new global::Gtk.Label ();
+			this.label2.Name = "label2";
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Summary:");
+			this.hbox1.Add (this.label2);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.label2]));
 			w2.Position = 0;
 			w2.Expand = false;
 			w2.Fill = false;
+			// Container child hbox1.Gtk.Box+BoxChild
+			this.summary = new global::Gtk.Entry ();
+			this.summary.CanFocus = true;
+			this.summary.Name = "summary";
+			this.summary.IsEditable = true;
+			this.summary.InvisibleChar = '•';
+			this.hbox1.Add (this.summary);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.summary]));
+			w3.Position = 1;
+			this.vbox2.Add (this.hbox1);
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox1]));
+			w4.Position = 0;
+			w4.Expand = false;
+			w4.Fill = false;
+			// Container child vbox2.Gtk.Box+BoxChild
+			this.hbox2 = new global::Gtk.HBox ();
+			this.hbox2.Name = "hbox2";
+			this.hbox2.Spacing = 6;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.label3 = new global::Gtk.Label ();
+			this.label3.Name = "label3";
+			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Priority:");
+			this.hbox2.Add (this.label3);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.label3]));
+			w5.Position = 0;
+			w5.Expand = false;
+			w5.Fill = false;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.combobox1 = global::Gtk.ComboBox.NewText ();
+			this.combobox1.Name = "combobox1";
+			this.hbox2.Add (this.combobox1);
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.combobox1]));
+			w6.Position = 1;
+			w6.Expand = false;
+			w6.Fill = false;
+			this.vbox2.Add (this.hbox2);
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox2]));
+			w7.Position = 1;
+			w7.Expand = false;
+			w7.Fill = false;
+			// Container child vbox2.Gtk.Box+BoxChild
+			this.label5 = new global::Gtk.Label ();
+			this.label5.Name = "label5";
+			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Description");
+			this.label5.Justify = ((global::Gtk.Justification)(2));
+			this.vbox2.Add (this.label5);
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.label5]));
+			w8.Position = 2;
+			w8.Expand = false;
+			w8.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -45,17 +105,17 @@ namespace task_tracker
 			this.textview1.Name = "textview1";
 			this.GtkScrolledWindow.Add (this.textview1);
 			this.vbox2.Add (this.GtkScrolledWindow);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.GtkScrolledWindow]));
-			w4.Position = 1;
+			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.GtkScrolledWindow]));
+			w10.Position = 3;
 			w1.Add (this.vbox2);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
-			w5.Position = 0;
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
+			w11.Position = 0;
 			// Internal child task_tracker.AddTask.ActionArea
-			global::Gtk.HButtonBox w6 = this.ActionArea;
-			w6.Name = "dialog1_ActionArea";
-			w6.Spacing = 10;
-			w6.BorderWidth = ((uint)(5));
-			w6.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w12 = this.ActionArea;
+			w12.Name = "dialog1_ActionArea";
+			w12.Spacing = 10;
+			w12.BorderWidth = ((uint)(5));
+			w12.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -65,9 +125,9 @@ namespace task_tracker
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w7 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w6 [this.buttonCancel]));
-			w7.Expand = false;
-			w7.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w13 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w12 [this.buttonCancel]));
+			w13.Expand = false;
+			w13.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button ();
 			this.buttonOk.CanDefault = true;
@@ -77,15 +137,15 @@ namespace task_tracker
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-ok";
 			this.AddActionWidget (this.buttonOk, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w8 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w6 [this.buttonOk]));
-			w8.Position = 1;
-			w8.Expand = false;
-			w8.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w14 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w12 [this.buttonOk]));
+			w14.Position = 1;
+			w14.Expand = false;
+			w14.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 489;
-			this.DefaultHeight = 191;
+			this.DefaultHeight = 269;
 			this.Show ();
 			this.buttonCancel.Clicked += new global::System.EventHandler (this.OnButtonCancelClicked);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);

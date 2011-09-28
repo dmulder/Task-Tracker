@@ -11,7 +11,7 @@ namespace task_tracker
 
 		protected void OnButtonOkClicked (object sender, System.EventArgs e)
 		{
-			throw new System.NotImplementedException ();
+			
 		}
 
 		protected void OnButtonCancelClicked (object sender, System.EventArgs e)
