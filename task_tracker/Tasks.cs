@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace task_tracker
 {
-	public class TaskData
+	public class Task
 	{
 		[XmlAttribute("Date")]
 		public DateTime Date;
@@ -14,22 +14,22 @@ namespace task_tracker
 		[XmlElement("Summary")]
 		public string Summary;
 		
-		[XmlElement("Task")]
-		public string Task;
+		[XmlElement("Description")]
+		public string Description;
 		
 		[XmlElement("Priority")]
-		public int Priority; //1 Next, 2 Today, 3 This week, 4 This month, 5 This year.
+		public int Priority; //0 Next, 1 Today, 2 This week, 3 This month, 4 This year.
 		
 		[XmlElement("InProgress")]
 		public bool InProgress;
 		
-		public TaskData() {}
+		public Task() {}
 		
-		public TaskData(DateTime date, string summary, string task, int priority, bool inprogress)
+		public Task(DateTime date, string summary, string description, int priority, bool inprogress)
 		{
 			Date = date;
 			Summary = summary;
-			Task = task;
+			Description = description;
 			Priority = priority;
 			InProgress = inprogress;
 		}
@@ -39,43 +39,38 @@ namespace task_tracker
 	public class Tasks
 	{
 		[XmlArray("Tasks")]
-		public List<TaskData> tasks;
+		public List<Task> tasks;
 		
-		public Tasks(){tasks = new List<TaskData>();}
-	}
-	
-	static internal class TaskWork
-	{
-		static internal Tasks Load()
+		public Tasks(){tasks = new List<Task>();}
+		
+		internal void Load()
 		{
 			string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-			return Load(Path.Combine(path, "tasks.xml"));
+			Load(Path.Combine(path, "tasks.xml"));
 		}
 		
-		static private Tasks Load(string path)
+		private void Load(string path)
 		{
 			var serializer = new XmlSerializer(typeof(Tasks));
 			var stream = new FileStream(path, FileMode.Open);
-			var tasks = serializer.Deserialize(stream) as Tasks;
+			var data = serializer.Deserialize(stream) as Tasks;
 			stream.Close();
-			return tasks;
+			this.tasks = data.tasks;
 		}
 		
-		static internal void Save(Tasks task)
+		internal void Save()
 		{
 			string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-			Save(task, Path.Combine(path, "tasks.xml"));
+			Save(Path.Combine(path, "tasks.xml"));
 		}
 		
-		static private void Save(Tasks task, string path)
+		private void Save(string path)
 		{
 			XmlSerializer serializer = new XmlSerializer(typeof(Tasks));
 			TextWriter writer = new StreamWriter(path);
-			serializer.Serialize(writer, task);
+			serializer.Serialize(writer, this);
 			writer.Close();
 		}
 	}
-
-
 }
 

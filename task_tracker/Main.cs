@@ -16,15 +16,15 @@ namespace task_tracker
 			icon.Visible = true;
 			icon.Tooltip = "Task Tracker";
 			icon.PopupMenu += OnStatusIconPopupMenu;
-			watch = new Timer(5000); //1800000
+			watch = new Timer(1800000);
 			watch.Elapsed += HandleWatchElapsed;
 			watch.Start();
+			RequestWork();
 			Application.Run();
 		}
 
 		static void HandleWatchElapsed (object sender, ElapsedEventArgs e)
 		{
-			watch.Stop();
 			RequestWork();
 		}
 		
@@ -32,15 +32,37 @@ namespace task_tracker
 		{
 			watch.Start();
 			Menu menu = new Menu();
+			
+			//Add Task Menu Item.
+			MenuItem addTask = new MenuItem("Add Task");
+			addTask.Show();
+			addTask.Activated += MenuAddTaskActivated;
+			menu.Append(addTask);
+			
+			//Settings Menu Item.
+			MenuItem settings = new MenuItem("Settings");
+			settings.Show();
+			settings.Activated += HandleSettingsActivated;
+			menu.Append(settings);
+			
+			//Exit Menu Item.
 			MenuItem exit = new MenuItem("Exit");
 			exit.Show();
 			exit.Activated += HandleExit;
 			menu.Append(exit);
-			MenuItem show = new MenuItem("Show");
-			show.Show();
-			show.Activated += HandleShowActivated;
-			menu.Append(show);
+			
 			menu.Popup(null,null,null,3,Gtk.Global.CurrentEventTime);
+		}
+
+		static void HandleSettingsActivated (object sender, EventArgs e)
+		{
+			Settings_Dialog settings = new Settings_Dialog();
+			settings.Show();
+		}
+
+		static void MenuAddTaskActivated (object sender, EventArgs e)
+		{
+			AddTask(false);
 		}
 
 		static void HandleShowActivated (object sender, EventArgs e)
@@ -57,12 +79,15 @@ namespace task_tracker
 		
 		static void HandleAddTask(object sender, EventArgs e)
 		{
-			watch.Interval = 1800000; //30 Minutes
-			watch.Start();
-			AddTask task = new AddTask(false);
+			AddTask(true);
+		}
+		
+		static void AddTask(bool InProgress)
+		{
+			AddTask task = new AddTask(InProgress);
 			task.Show();
 		}
-
+		
 		static void HandleExit(object sender, EventArgs e)
 		{
 			Application.Quit();

@@ -9,20 +9,22 @@ namespace task_tracker
 		public AddTask (bool inprogress)
 		{
 			InProgress = inprogress;
-			this.Build ();
+			this.Build();
 		}
 
 		protected void OnButtonOkClicked (object sender, System.EventArgs e)
 		{
-			Tasks task = new Tasks();
-			TaskData data = new TaskData(DateTime.Now, summary.Text, description.Text, 0, InProgress);
-			task.tasks.Add(data);
-			TaskWork.Save(task);
+			Tasks tasks = new Tasks();
+			tasks.Load();
+			Task task = new Task(DateTime.Now, summary.Text, description.Buffer.Text, 0, InProgress);
+			tasks.tasks.Add(task);
+			tasks.Save();
+			this.Destroy();
 		}
 
 		protected void OnButtonCancelClicked (object sender, System.EventArgs e)
 		{
-			
+			this.Destroy();
 		}
 	}
 }
