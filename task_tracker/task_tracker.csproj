@@ -49,10 +49,11 @@
     <Compile Include="AddTask.cs" />
     <Compile Include="gtk-gui\task_tracker.AddTask.cs" />
     <Compile Include="Tasks.cs" />
-    <Compile Include="gtk-gui\task_tracker.Settings_Dialog.cs" />
     <Compile Include="TaskSettings.cs" />
     <Compile Include="Dialog_Settings.cs" />
     <Compile Include="gtk-gui\task_tracker.Dialog_Settings.cs" />
+    <Compile Include="RequestWork.cs" />
+    <Compile Include="Reports.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

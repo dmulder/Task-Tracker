@@ -11,6 +11,12 @@ namespace task_tracker
 		[XmlAttribute("Date")]
 		public DateTime Date;
 		
+		[XmlElement("Start")]
+		public DateTime Start;
+		
+		[XmlElement("Finished")]
+		public DateTime Finished;
+		
 		[XmlElement("Summary")]
 		public string Summary;
 		
@@ -41,12 +47,31 @@ namespace task_tracker
 		[XmlArray("Tasks")]
 		public List<Task> tasks;
 		
-		public Tasks(){tasks = new List<Task>();}
+		public Tasks()
+		{
+			tasks = new List<Task>();
+		}
 		
 		internal void Load()
 		{
 			string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 			Load(Path.Combine(path, "tasks.xml"));
+		}
+		
+		internal void Remove(Task task)
+		{
+			Task current = null;
+			foreach (Task old in tasks)
+			{
+				if (old.Date == task.Date)
+				{
+					current = old;
+				}
+			}
+			if (current != null)
+			{
+				tasks.Remove(current);
+			}
 		}
 		
 		private void Load(string path)
@@ -70,6 +95,67 @@ namespace task_tracker
 			TextWriter writer = new StreamWriter(path);
 			serializer.Serialize(writer, this);
 			writer.Close();
+		}
+		
+		internal Task GetPriority()
+		{
+			Task next = new Task();
+			next.Priority = 5;
+			foreach (Task task in tasks)
+			{
+				if (task.Priority < next.Priority && task.Finished == DateTime.MinValue && !task.InProgress)
+				{
+					next = task;
+				}
+			}
+			if (next.Priority == 5)
+			{
+				return null;
+			}
+			else
+			{
+				return next;
+			}
+		}
+		
+		internal Task CurrentTask()
+		{
+			Task current = null;
+			foreach (Task task in tasks)
+			{
+				if (task.InProgress)
+				{
+					current = task;
+				}
+			}
+			return current;
+		}
+		
+		internal void SetCurrentTaskFinished()
+		{
+			Task task = CurrentTask();
+			task.Finished = DateTime.Now;
+			task.InProgress = false;
+			Save();
+		}
+		
+		internal void FinishCurrentTaskAndStartPriorityTask()
+		{
+			Task task = GetPriority();
+			SetCurrentTaskFinished();
+			task.InProgress = true;
+			task.Start = DateTime.Now;
+			Save();
+		}
+		
+		internal void PostponePriorityTask()
+		{
+			Task task = GetPriority();
+			if (task.Priority < 4)
+			{
+				task.Priority += 1;
+				Save();
+			}
 		}
 	}
 }

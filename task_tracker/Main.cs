@@ -19,13 +19,13 @@ namespace task_tracker
 			watch = new Timer(1800000);
 			watch.Elapsed += HandleWatchElapsed;
 			watch.Start();
-			RequestWork();
+			RequestWork.DisplayMessage();
 			Application.Run();
 		}
 
 		static void HandleWatchElapsed (object sender, ElapsedEventArgs e)
 		{
-			RequestWork();
+			RequestWork.DisplayMessage();
 		}
 		
 		static void OnStatusIconPopupMenu(object sender, EventArgs e)
@@ -45,6 +45,18 @@ namespace task_tracker
 			settings.Activated += HandleSettingsActivated;
 			menu.Append(settings);
 			
+			//Daily Report
+			MenuItem dailyreport = new MenuItem("Daily Report");
+			dailyreport.Show();
+			dailyreport.Activated += HandleDailyReportActivated;
+			menu.Append(dailyreport);
+			
+			//Weekly Report
+			MenuItem weeklyreport = new MenuItem("Weekly Report");
+			weeklyreport.Show();
+			weeklyreport.Activated += HandleWeeklyReportActivated;
+			menu.Append(weeklyreport);
+			
 			//Exit Menu Item.
 			MenuItem exit = new MenuItem("Exit");
 			exit.Show();
@@ -53,39 +65,33 @@ namespace task_tracker
 			
 			menu.Popup(null,null,null,3,Gtk.Global.CurrentEventTime);
 		}
-
-		static void HandleSettingsActivated (object sender, EventArgs e)
+		
+		static void HandleDailyReportActivated(object sender, EventArgs e)
+		{
+			Reports dailyreport = new Reports();
+			string report = dailyreport.CompileDailyReport();
+		}
+		
+		static void HandleWeeklyReportActivated(object sender, EventArgs e)
+		{
+			
+		}
+		
+		static void HandleSettingsActivated(object sender, EventArgs e)
 		{
 			Dialog_Settings settings = new Dialog_Settings();
 			settings.Show();
+			
 		}
 
-		static void MenuAddTaskActivated (object sender, EventArgs e)
+		static void MenuAddTaskActivated(object sender, EventArgs e)
 		{
-			AddTask(false);
+			RequestWork.AddTask(false);
 		}
 
-		static void HandleShowActivated (object sender, EventArgs e)
+		static void HandleShowActivated(object sender, EventArgs e)
 		{
-			RequestWork();
-		}
-		
-		static void RequestWork()
-		{
-			Notification notify = new Notification("Work", "What are you working on?");
-			notify.AddAction("AddTask", "Add Task", HandleAddTask);
-			notify.Show();
-		}
-		
-		static void HandleAddTask(object sender, EventArgs e)
-		{
-			AddTask(true);
-		}
-		
-		static void AddTask(bool InProgress)
-		{
-			AddTask task = new AddTask(InProgress);
-			task.Show();
+			RequestWork.DisplayMessage();
 		}
 		
 		static void HandleExit(object sender, EventArgs e)
