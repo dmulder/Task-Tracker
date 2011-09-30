@@ -1,26 +1,27 @@
 using System;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace task_tracker
 {
-	public class Settings
+	public class TaskSettings
 	{
 		[XmlElement("Interval")]
 		public int interval;
 		
-		public Settings () {}
+		public TaskSettings () {}
 		
-		internal Settings Load()
+		internal TaskSettings Load()
 		{
 			string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 			return Load(Path.Combine(path, "settings.xml"));
 		}
 		
-		private Settings Load(string path)
+		private TaskSettings Load(string path)
 		{
-			var serializer = new XmlSerializer(typeof(Settings));
+			var serializer = new XmlSerializer(typeof(TaskSettings));
 			var stream = new FileStream(path, FileMode.Open);
-			var data = serializer.Deserialize(stream) as Settings;
+			var data = serializer.Deserialize(stream) as TaskSettings;
 			stream.Close();
 			return data;
 		}
@@ -33,7 +34,7 @@ namespace task_tracker
 		
 		private void Save(string path)
 		{
-			XmlSerializer serializer = new XmlSerializer(typeof(Settings));
+			XmlSerializer serializer = new XmlSerializer(typeof(TaskSettings));
 			TextWriter writer = new StreamWriter(path);
 			serializer.Serialize(writer, this);
 			writer.Close();

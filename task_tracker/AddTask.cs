@@ -4,11 +4,9 @@ namespace task_tracker
 {
 	public partial class AddTask : Gtk.Dialog
 	{
-		private bool InProgress;
-		
 		public AddTask (bool inprogress)
 		{
-			InProgress = inprogress;
+			current.Active = inprogress;
 			this.Build();
 		}
 
@@ -16,7 +14,7 @@ namespace task_tracker
 		{
 			Tasks tasks = new Tasks();
 			tasks.Load();
-			Task task = new Task(DateTime.Now, summary.Text, description.Buffer.Text, 0, InProgress);
+			Task task = new Task(DateTime.Now, summary.Text, description.Buffer.Text, 0, current.Active);
 			tasks.tasks.Add(task);
 			tasks.Save();
 			this.Destroy();

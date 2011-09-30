@@ -56,7 +56,7 @@ namespace task_tracker
 
 		static void HandleSettingsActivated (object sender, EventArgs e)
 		{
-			Settings_Dialog settings = new Settings_Dialog();
+			Dialog_Settings settings = new Dialog_Settings();
 			settings.Show();
 		}
 
