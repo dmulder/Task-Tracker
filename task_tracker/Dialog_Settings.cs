@@ -23,6 +23,11 @@ namespace task_tracker
 			try
 			{
 				settings.interval = Int32.Parse(data)*1000*60; //Convert Minutes into milliseconds.
+				settings.email = email_address.Text;
+				settings.subject = email_subject.Text;
+				settings.destination = email_destination.Text;
+				settings.smtpServer = smtp_server.Text;
+				settings.password = email_password.Text;
 				settings.Save();
 				this.Destroy();
 			}

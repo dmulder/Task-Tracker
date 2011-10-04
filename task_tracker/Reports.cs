@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Mail;
+using System.Net;
 
 namespace task_tracker
 {
@@ -58,6 +60,29 @@ namespace task_tracker
 				}
 			}
 			return report;
+		}
+		
+		internal string CompileWeeklyReport()
+		{
+			string report = "";
+//			foreach (Task task in finishedTasks)
+//			{
+//				if (task.Finished.Date == day.Date)
+//				{
+//					report += "- " + task.Summary + " (" + Hours(task.Start, task.Finished) + ").\n";
+//				}
+//			}
+			return report;
+		}
+		
+		static internal void SendReport(string message)
+		{
+			TaskSettings settings = new TaskSettings();
+			settings.Load();
+			MailMessage mail = new MailMessage(settings.email, settings.destination, settings.subject, message);
+			SmtpClient smtpclient = new SmtpClient(settings.smtpServer);
+			smtpclient.Credentials = new NetworkCredential(settings.email, settings.password);
+			smtpclient.Send(mail);
 		}
 		
 		private int Hours(DateTime start, DateTime finish)

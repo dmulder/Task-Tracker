@@ -8,8 +8,9 @@
     <ProjectGuid>{F3E0BDDE-5479-448F-A158-565F2E9FF80F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>task_tracker</RootNamespace>
-    <AssemblyName>task_tracker</AssemblyName>
+    <AssemblyName>Tracker</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <ReleaseVersion>0.3</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>

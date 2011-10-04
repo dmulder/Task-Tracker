@@ -14,7 +14,7 @@ namespace task_tracker
 			if (current != null)
 			{
 				notify = new Notification("Tasks", "Are you still working on this task?\n" + current.Summary);
-				notify.AddAction("yes", "Yes", null);
+				notify.AddAction("yes", "Yes", HandleDoNothing);
 				notify.AddAction("suggest", "Suggest Task", HandleSuggestTask);
 				notify.AddAction("AddTask", "Add Task", HandleAddTask);
 				notify.Timeout = 0;
@@ -24,6 +24,11 @@ namespace task_tracker
 			{
 				SuggestTask();
 			}
+		}
+		
+		static void HandleDoNothing(object sender, ActionArgs e)
+		{
+			//Do Nothing. Dumb, I know, but mono throws an exception if I don't have this here.
 		}
 
 		static internal void AddTask(bool InProgress)

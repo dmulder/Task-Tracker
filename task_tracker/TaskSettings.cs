@@ -9,16 +9,35 @@ namespace task_tracker
 		[XmlElement("Interval")]
 		public int interval;
 		
+		[XmlElement("Email")]
+		public string email;
+		
+		[XmlElement("Destination")]
+		public string destination;
+		
+		[XmlElement("Subject")]
+		public string subject;
+		
+		[XmlElement("SMTPServer")]
+		public string smtpServer;
+		
+		[XmlElement("Password")]
+		public string password;
+		
 		public TaskSettings () {}
 		
 		internal TaskSettings Load()
 		{
-			string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-			return Load(Path.Combine(path, "settings.xml"));
+			string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			return Load(Path.Combine(path, "tracker/settings.xml"));
 		}
 		
 		private TaskSettings Load(string path)
 		{
+			if (!File.Exists(path))
+			{
+				Save();
+			}
 			var serializer = new XmlSerializer(typeof(TaskSettings));
 			var stream = new FileStream(path, FileMode.Open);
 			var data = serializer.Deserialize(stream) as TaskSettings;
@@ -28,8 +47,8 @@ namespace task_tracker
 		
 		internal void Save()
 		{
-			string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-			Save(Path.Combine(path, "settings.xml"));
+			string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			Save(Path.Combine(path, "tracker/settings.xml"));
 		}
 		
 		private void Save(string path)

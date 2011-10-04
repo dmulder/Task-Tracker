@@ -54,8 +54,8 @@ namespace task_tracker
 		
 		internal void Load()
 		{
-			string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-			Load(Path.Combine(path, "tasks.xml"));
+			string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			Load(Path.Combine(path, "tracker/tasks.xml"));
 		}
 		
 		internal void Remove(Task task)
@@ -76,6 +76,10 @@ namespace task_tracker
 		
 		private void Load(string path)
 		{
+			if (!File.Exists(path))
+			{
+				Save();
+			}
 			var serializer = new XmlSerializer(typeof(Tasks));
 			var stream = new FileStream(path, FileMode.Open);
 			var data = serializer.Deserialize(stream) as Tasks;
@@ -85,8 +89,8 @@ namespace task_tracker
 		
 		internal void Save()
 		{
-			string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-			Save(Path.Combine(path, "tasks.xml"));
+			string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			Save(Path.Combine(path, "tracker/tasks.xml"));
 		}
 		
 		private void Save(string path)
@@ -134,9 +138,12 @@ namespace task_tracker
 		internal void SetCurrentTaskFinished()
 		{
 			Task task = CurrentTask();
-			task.Finished = DateTime.Now;
-			task.InProgress = false;
-			Save();
+			if (task != null)
+			{
+				task.Finished = DateTime.Now;
+				task.InProgress = false;
+				Save();
+			}
 		}
 		
 		internal void FinishCurrentTaskAndStartPriorityTask()

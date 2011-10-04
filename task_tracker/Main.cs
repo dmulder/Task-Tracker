@@ -8,6 +8,8 @@ namespace task_tracker
 	class MainClass
 	{
 		private static Timer watch; //Add pause/start buttons to menu.
+		private static string dailyreportmessage;
+//		private static string weeklyreportmessage;
 		
 		public static void Main (string[] args)
 		{
@@ -16,6 +18,14 @@ namespace task_tracker
 			icon.Visible = true;
 			icon.Tooltip = "Task Tracker";
 			icon.PopupMenu += OnStatusIconPopupMenu;
+			//For some reason this block of code breaks the StatusIcon...
+//			TaskSettings settings = new TaskSettings();
+//			settings.Load();
+//			if (settings.interval == 0)
+//			{
+//				settings.interval = 1800000;
+//				settings.Save();
+//			}
 			watch = new Timer(1800000);
 			watch.Elapsed += HandleWatchElapsed;
 			watch.Start();
@@ -25,6 +35,9 @@ namespace task_tracker
 
 		static void HandleWatchElapsed (object sender, ElapsedEventArgs e)
 		{
+			TaskSettings settings = new TaskSettings();
+			settings.Load();
+			watch.Interval = settings.interval;
 			RequestWork.DisplayMessage();
 		}
 		
@@ -52,10 +65,10 @@ namespace task_tracker
 			menu.Append(dailyreport);
 			
 			//Weekly Report
-			MenuItem weeklyreport = new MenuItem("Weekly Report");
-			weeklyreport.Show();
-			weeklyreport.Activated += HandleWeeklyReportActivated;
-			menu.Append(weeklyreport);
+//			MenuItem weeklyreport = new MenuItem("Weekly Report");
+//			weeklyreport.Show();
+//			weeklyreport.Activated += HandleWeeklyReportActivated;
+//			menu.Append(weeklyreport);
 			
 			//Exit Menu Item.
 			MenuItem exit = new MenuItem("Exit");
@@ -69,19 +82,39 @@ namespace task_tracker
 		static void HandleDailyReportActivated(object sender, EventArgs e)
 		{
 			Reports dailyreport = new Reports();
-			string report = dailyreport.CompileDailyReport();
+			dailyreportmessage = dailyreport.CompileDailyReport();
+			Notification notify = new Notification();
+			notify.Summary = "Daily Report";
+			notify.Body = dailyreportmessage;
+			notify.AddAction("send", "Send", HandleSendDaily);
+			notify.Show();
 		}
 		
-		static void HandleWeeklyReportActivated(object sender, EventArgs e)
+		static void HandleSendDaily(object sender, ActionArgs e)
 		{
-			
+			Reports.SendReport(dailyreportmessage);
 		}
+		
+//		static void HandleWeeklyReportActivated(object sender, EventArgs e)
+//		{
+//			Reports weeklyreport = new Reports();
+//			weeklyreportmessage = weeklyreport.CompileWeeklyReport();
+//			Notification notify = new Notification();
+//			notify.Summary = "Weekly Report";
+//			notify.Body = weeklyreportmessage;
+//			notify.AddAction("send", "Send", HandleSendWeekly);
+//			notify.Show();
+//		}
+//				
+//		static void HandleSendWeekly(object sender, ActionArgs e)
+//		{
+//			Reports.SendReport(weeklyreportmessage);
+//		}
 		
 		static void HandleSettingsActivated(object sender, EventArgs e)
 		{
 			Dialog_Settings settings = new Dialog_Settings();
 			settings.Show();
-			
 		}
 
 		static void MenuAddTaskActivated(object sender, EventArgs e)
