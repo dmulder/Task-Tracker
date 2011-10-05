@@ -56,15 +56,22 @@ namespace task_tracker
 			{
 				if (task.Finished.Date == day.Date)
 				{
-					report += "- " + task.Summary + " (" + Hours(task.Start, task.Finished) + ").\n";
+					report += "- " + task.Summary + "\n";
+				}
+			}
+			foreach (Task task in tasks.tasks)
+			{
+				if (task.InProgress == true)
+				{
+					report += "- Working on: " + task.Summary + "\n";
 				}
 			}
 			return report;
 		}
 		
-		internal string CompileWeeklyReport()
-		{
-			string report = "";
+//		internal string CompileWeeklyReport()
+//		{
+//			string report = "";
 //			foreach (Task task in finishedTasks)
 //			{
 //				if (task.Finished.Date == day.Date)
@@ -72,16 +79,23 @@ namespace task_tracker
 //					report += "- " + task.Summary + " (" + Hours(task.Start, task.Finished) + ").\n";
 //				}
 //			}
-			return report;
-		}
+//			return report;
+//		}
 		
 		static internal void SendReport(string message)
 		{
 			TaskSettings settings = new TaskSettings();
-			settings.Load();
-			MailMessage mail = new MailMessage(settings.email, settings.destination, settings.subject, message);
+			settings = settings.Load();
+			MailAddress from_address = new MailAddress(settings.email);
+			MailAddress to_address = new MailAddress(settings.destination);
+			MailMessage mail = new MailMessage(from_address, to_address);
+			DateTime today = DateTime.Now;
+			string date = today.Year + "-" + today.Month + "-" + today.Day;
+			mail.Subject = settings.subject.Replace("<Date>", date);
+			mail.Body = message;
 			SmtpClient smtpclient = new SmtpClient(settings.smtpServer);
 			smtpclient.Credentials = new NetworkCredential(settings.email, settings.password);
+			smtpclient.Port = 25;
 			smtpclient.Send(mail);
 		}
 		

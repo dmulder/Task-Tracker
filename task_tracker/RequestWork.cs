@@ -42,7 +42,7 @@ namespace task_tracker
 			SuggestTask();
 		}
 		
-		static void SuggestTask()
+		static internal void SuggestTask()
 		{
 			Notification notify;
 			Tasks tasks = new Tasks();
@@ -87,12 +87,17 @@ namespace task_tracker
 			SelectTask();
 		}
 		
+		static internal void EditTask(Task task)
+		{
+			AddTask taskEdit = new AddTask(task);
+			taskEdit.Show();
+		}
+		
 		static void HandleEditTask(object sender, ActionArgs e)
 		{
 			Tasks tasks = new Tasks();
 			tasks.Load();
-			AddTask task = new AddTask(tasks.GetPriority());
-			task.Show();
+			EditTask(tasks.GetPriority());
 		}
 		
 		static void HandleAddTask(object sender, ActionArgs e)

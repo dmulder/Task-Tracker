@@ -9,6 +9,14 @@ namespace task_tracker
 		public Dialog_Settings ()
 		{
 			this.Build ();
+			TaskSettings settings = new TaskSettings();
+			settings = settings.Load();
+			interval.Text = (settings.interval/1000/60).ToString();
+			email_address.Text = settings.email;
+			email_subject.Text = settings.subject;
+			email_destination.Text = settings.destination;
+			smtp_server.Text = settings.smtpServer;
+			email_password.Text = settings.password;
 		}
 
 		protected void OnButtonCancelClicked (object sender, System.EventArgs e)

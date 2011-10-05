@@ -18,15 +18,14 @@ namespace task_tracker
 			icon.Visible = true;
 			icon.Tooltip = "Task Tracker";
 			icon.PopupMenu += OnStatusIconPopupMenu;
-			//For some reason this block of code breaks the StatusIcon...
-//			TaskSettings settings = new TaskSettings();
-//			settings.Load();
-//			if (settings.interval == 0)
-//			{
-//				settings.interval = 1800000;
-//				settings.Save();
-//			}
-			watch = new Timer(1800000);
+			TaskSettings settings = new TaskSettings();
+			settings = settings.Load();
+			if (settings.interval == 0)
+			{
+				settings.interval = 1200000;
+				settings.Save();
+			}
+			watch = new Timer(1200000); //20 Minutes default.
 			watch.Elapsed += HandleWatchElapsed;
 			watch.Start();
 			RequestWork.DisplayMessage();
@@ -46,11 +45,23 @@ namespace task_tracker
 			watch.Start();
 			Menu menu = new Menu();
 			
+			//View Task Menu Item.
+			MenuItem viewTask = new MenuItem("View Task");
+			viewTask.Show();
+			viewTask.Activated += MenuViewTaskActivated;
+			menu.Append(viewTask);
+			
 			//Add Task Menu Item.
 			MenuItem addTask = new MenuItem("Add Task");
 			addTask.Show();
 			addTask.Activated += MenuAddTaskActivated;
 			menu.Append(addTask);
+			
+			//Suggest Task Menu Item.
+			MenuItem suggestTask = new MenuItem("Suggest Task");
+			suggestTask.Show();
+			suggestTask.Activated += MenuSuggestTaskActivated;
+			menu.Append(suggestTask);
 			
 			//Settings Menu Item.
 			MenuItem settings = new MenuItem("Settings");
@@ -115,6 +126,18 @@ namespace task_tracker
 		{
 			Dialog_Settings settings = new Dialog_Settings();
 			settings.Show();
+		}
+		
+		static void MenuViewTaskActivated(object sender, EventArgs e)
+		{
+			Tasks tasks = new Tasks();
+			tasks.Load();
+			RequestWork.EditTask(tasks.CurrentTask());
+		}
+		
+		static void MenuSuggestTaskActivated(object sender, EventArgs e)
+		{
+			RequestWork.SuggestTask();
 		}
 
 		static void MenuAddTaskActivated(object sender, EventArgs e)
