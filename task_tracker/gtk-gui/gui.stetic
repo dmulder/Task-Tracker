@@ -8,7 +8,7 @@
     <widget-library name="../../../../../../usr/lib/mono/notify-sharp/notify-sharp.dll" />
     <widget-library name="../bin/Release/Tracker.exe" internal="true" />
   </import>
-  <widget class="Gtk.Dialog" id="task_tracker.AddTask" design-size="489 269">
+  <widget class="Gtk.Dialog" id="task_tracker.AddTask" design-size="650 366">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Add a Task</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -519,7 +519,7 @@ This year</property>
         <property name="MemberName" />
         <property name="BorderWidth">2</property>
         <child>
-          <widget class="Gtk.Calendar" id="calendar1">
+          <widget class="Gtk.Calendar" id="calendar">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="DisplayOptions">35</property>
@@ -549,6 +549,7 @@ This year</property>
             <property name="Type">StockItem</property>
             <property name="StockId">gtk-cancel</property>
             <property name="ResponseId">-6</property>
+            <signal name="Clicked" handler="OnButtonCancelClicked" />
             <property name="label">gtk-cancel</property>
           </widget>
           <packing>
@@ -565,6 +566,7 @@ This year</property>
             <property name="Type">StockItem</property>
             <property name="StockId">gtk-ok</property>
             <property name="ResponseId">-5</property>
+            <signal name="Clicked" handler="OnButtonOkClicked" />
             <property name="label">gtk-ok</property>
           </widget>
           <packing>

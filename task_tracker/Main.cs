@@ -7,7 +7,7 @@ namespace task_tracker
 {
 	class MainClass
 	{
-		private static Timer watch; //Add pause/start buttons to menu.
+		private static Timer watch;
 		private static string dailyreportmessage;
 //		private static string weeklyreportmessage;
 		
@@ -22,10 +22,10 @@ namespace task_tracker
 			settings = settings.Load();
 			if (settings.interval == 0)
 			{
-				settings.interval = 1200000;
+				settings.interval = 1200000; //20 Minutes default.
 				settings.Save();
 			}
-			watch = new Timer(1200000); //20 Minutes default.
+			watch = new Timer(settings.interval);
 			watch.Elapsed += HandleWatchElapsed;
 			watch.Start();
 			RequestWork.DisplayMessage();
@@ -34,15 +34,11 @@ namespace task_tracker
 
 		static void HandleWatchElapsed (object sender, ElapsedEventArgs e)
 		{
-			TaskSettings settings = new TaskSettings();
-			settings.Load();
-			watch.Interval = settings.interval;
 			RequestWork.DisplayMessage();
 		}
 		
 		static void OnStatusIconPopupMenu(object sender, EventArgs e)
 		{
-			watch.Start();
 			Menu menu = new Menu();
 			
 			//View Task Menu Item.
@@ -75,6 +71,12 @@ namespace task_tracker
 			dailyreport.Activated += HandleDailyReportActivated;
 			menu.Append(dailyreport);
 			
+			//Selected Day Report
+			MenuItem selectedreport = new MenuItem("Select Day to Report");
+			selectedreport.Show();
+			selectedreport.Activated += HandleSelectedReportActivated;
+			menu.Append(selectedreport);
+			
 			//Weekly Report
 //			MenuItem weeklyreport = new MenuItem("Weekly Report");
 //			weeklyreport.Show();
@@ -88,6 +90,12 @@ namespace task_tracker
 			menu.Append(exit);
 			
 			menu.Popup(null,null,null,3,Gtk.Global.CurrentEventTime);
+		}
+		
+		static void HandleSelectedReportActivated(object sender, EventArgs e)
+		{
+			Select_Date selected = new Select_Date();
+			selected.Show();
 		}
 		
 		static void HandleDailyReportActivated(object sender, EventArgs e)

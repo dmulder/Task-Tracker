@@ -23,7 +23,7 @@ namespace task_tracker
 			edit = true;
 			summary.Text = task.Summary;
 			description.Buffer.Text = task.Description;
-			priority.Active = task.Priority;
+			priority.Active = task.Priority/5;
 		}
 
 		protected void OnButtonOkClicked (object sender, System.EventArgs e)
@@ -36,7 +36,7 @@ namespace task_tracker
 			}
 			if (!edit)
 			{
-				task = new Task(DateTime.Now, summary.Text, description.Buffer.Text, priority.Active, current.Active);
+				task = new Task(DateTime.Now, summary.Text, description.Buffer.Text, priority.Active*5, current.Active);
 				if (current.Active)
 				{
 					task.Start = DateTime.Now;

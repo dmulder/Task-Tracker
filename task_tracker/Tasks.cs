@@ -24,7 +24,7 @@ namespace task_tracker
 		public string Description;
 		
 		[XmlElement("Priority")]
-		public int Priority; //0 Next, 1 Today, 2 This week, 3 This month, 4 This year.
+		public int Priority; //0 Next, 1 Today, 2 This week, 3 This month, 4 This year (all multiplied by 5 for postponement).
 		
 		[XmlElement("InProgress")]
 		public bool InProgress;
@@ -104,7 +104,7 @@ namespace task_tracker
 		internal Task GetPriority()
 		{
 			Task next = new Task();
-			next.Priority = 5;
+			next.Priority = 25;
 			foreach (Task task in tasks)
 			{
 				if (task.Priority < next.Priority && task.Finished == DateTime.MinValue && !task.InProgress)
@@ -112,7 +112,7 @@ namespace task_tracker
 					next = task;
 				}
 			}
-			if (next.Priority == 5)
+			if (next.Priority == 25)
 			{
 				return null;
 			}
@@ -157,8 +157,13 @@ namespace task_tracker
 		
 		internal void PostponePriorityTask()
 		{
+			List<int> badvals = new List<int>();
+			badvals.Add(4);
+			badvals.Add(9);
+			badvals.Add(14);
+			badvals.Add(19);
 			Task task = GetPriority();
-			if (task.Priority < 4)
+			if (!badvals.Contains(task.Priority) && task.Priority < 24)
 			{
 				task.Priority += 1;
 				Save();

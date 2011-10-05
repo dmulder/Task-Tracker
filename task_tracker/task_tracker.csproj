@@ -10,7 +10,7 @@
     <RootNamespace>task_tracker</RootNamespace>
     <AssemblyName>Tracker</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <ReleaseVersion>0.6</ReleaseVersion>
+    <ReleaseVersion>0.7</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>

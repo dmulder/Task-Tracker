@@ -162,8 +162,8 @@ namespace task_tracker
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 489;
-			this.DefaultHeight = 269;
+			this.DefaultWidth = 650;
+			this.DefaultHeight = 366;
 			this.Show ();
 			this.buttonCancel.Clicked += new global::System.EventHandler (this.OnButtonCancelClicked);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);

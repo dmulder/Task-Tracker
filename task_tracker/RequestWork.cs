@@ -89,8 +89,15 @@ namespace task_tracker
 		
 		static internal void EditTask(Task task)
 		{
-			AddTask taskEdit = new AddTask(task);
-			taskEdit.Show();
+			if (task != null)
+			{
+				AddTask taskEdit = new AddTask(task);
+				taskEdit.Show();
+			}
+			else
+			{
+				SuggestTask();
+			}
 		}
 		
 		static void HandleEditTask(object sender, ActionArgs e)
