@@ -16,6 +16,6 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = task_tracker\task_tracker.csproj
-		version = 0.7
+		version = 1.0
 	EndGlobalSection
 EndGlobal

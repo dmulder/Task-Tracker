@@ -29,6 +29,9 @@ namespace task_tracker
 		[XmlElement("InProgress")]
 		public bool InProgress;
 		
+		[XmlArray("Worked")]
+		public List<DateTime> Worked;
+		
 		public Task() {}
 		
 		public Task(DateTime date, string summary, string description, int priority, bool inprogress)
@@ -38,6 +41,19 @@ namespace task_tracker
 			Description = description;
 			Priority = priority;
 			InProgress = inprogress;
+			Worked = new List<DateTime>();
+		}
+		
+		internal bool IsWorked(DateTime day)
+		{
+			foreach (DateTime worked in Worked)
+			{
+				if (worked.ToShortDateString() == day.ToShortDateString())
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 	
@@ -146,12 +162,26 @@ namespace task_tracker
 			}
 		}
 		
+		internal void SetTaskNotActive()
+		{
+			Task task = CurrentTask();
+			if (task != null)
+			{
+				task.InProgress = false;
+				Save();
+			}
+		}
+		
 		internal void FinishCurrentTaskAndStartPriorityTask()
 		{
 			Task task = GetPriority();
-			SetCurrentTaskFinished();
+			SetTaskNotActive();
 			task.InProgress = true;
 			task.Start = DateTime.Now;
+			if (!task.IsWorked(DateTime.Now))
+			{
+				task.Worked.Add(DateTime.Now);
+			}
 			Save();
 		}
 		

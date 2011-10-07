@@ -42,6 +42,10 @@ namespace task_tracker
 					finishedTasks.Add(task);
 				}
 			}
+			foreach (Task task in finishedTasks)
+			{
+				tasks.Remove(task);
+			}
 		}
 		
 		internal string CompileDailyReport()
@@ -61,7 +65,7 @@ namespace task_tracker
 			}
 			foreach (Task task in tasks.tasks)
 			{
-				if (task.InProgress == true)
+				if (task.InProgress == true || task.IsWorked(day))
 				{
 					report += "- Working on: " + task.Summary + "\n";
 				}

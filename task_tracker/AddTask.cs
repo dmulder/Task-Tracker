@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace task_tracker
 {
@@ -32,7 +33,7 @@ namespace task_tracker
 			tasks.Load();
 			if (current.Active)
 			{
-				tasks.SetCurrentTaskFinished();
+				tasks.SetTaskNotActive();
 			}
 			if (!edit)
 			{
@@ -40,17 +41,34 @@ namespace task_tracker
 				if (current.Active)
 				{
 					task.Start = DateTime.Now;
+					if (!task.IsWorked(DateTime.Now))
+					{
+						task.Worked.Add(DateTime.Now);
+					}
 				}
 				tasks.tasks.Add(task);
 				tasks.Save();
 			}
 			else
 			{
+				List<DateTime> worked = new List<DateTime>();
+				foreach (DateTime date in task.Worked)
+				{
+					worked.Add(date);
+				}
 				tasks.Remove(task);
 				task = new Task(DateTime.Now, summary.Text, description.Buffer.Text, priority.Active, current.Active);
+				foreach (DateTime date in worked)
+				{
+					task.Worked.Add(date);
+				}
 				if (current.Active)
 				{
 					task.Start = DateTime.Now;
+					if (!task.IsWorked(DateTime.Now))
+					{
+						task.Worked.Add(DateTime.Now);
+					}
 				}
 				tasks.tasks.Add(task);
 				tasks.Save();

@@ -20,11 +20,6 @@ namespace task_tracker
 			icon.PopupMenu += OnStatusIconPopupMenu;
 			TaskSettings settings = new TaskSettings();
 			settings = settings.Load();
-			if (settings.interval == 0)
-			{
-				settings.interval = 1200000; //20 Minutes default.
-				settings.Save();
-			}
 			watch = new Timer(settings.interval);
 			watch.Elapsed += HandleWatchElapsed;
 			watch.Start();
@@ -58,6 +53,12 @@ namespace task_tracker
 			suggestTask.Show();
 			suggestTask.Activated += MenuSuggestTaskActivated;
 			menu.Append(suggestTask);
+			
+			//Finish Task Menu Item.
+			MenuItem finishTask = new MenuItem("Finish Task");
+			finishTask.Show();
+			finishTask.Activated += MenuFinishTaskActivated;
+			menu.Append(finishTask);
 			
 			//Settings Menu Item.
 			MenuItem settings = new MenuItem("Settings");
@@ -106,6 +107,18 @@ namespace task_tracker
 			notify.Summary = "Daily Report";
 			notify.Body = dailyreportmessage;
 			notify.AddAction("send", "Send", HandleSendDaily);
+			notify.Show();
+		}
+		
+		static void MenuFinishTaskActivated(object sender, EventArgs e)
+		{
+			Tasks tasks = new Tasks();
+			tasks.Load();
+			Task task = tasks.CurrentTask();
+			tasks.SetCurrentTaskFinished();
+			Notification notify = new Notification();
+			notify.Summary = "Task Finished";
+			notify.Body = task.Summary;
 			notify.Show();
 		}
 		

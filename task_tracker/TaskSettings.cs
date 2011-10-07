@@ -7,7 +7,7 @@ namespace task_tracker
 	public class TaskSettings
 	{
 		[XmlElement("Interval")]
-		public int interval;
+		public int interval = 1200000;
 		
 		[XmlElement("Email")]
 		public string email;
