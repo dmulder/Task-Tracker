@@ -9,7 +9,6 @@ namespace task_tracker
 	{
 		private static Timer watch;
 		private static string dailyreportmessage;
-//		private static string weeklyreportmessage;
 		
 		public static void Main (string[] args)
 		{
@@ -79,10 +78,10 @@ namespace task_tracker
 			menu.Append(selectedreport);
 			
 			//Weekly Report
-//			MenuItem weeklyreport = new MenuItem("Weekly Report");
-//			weeklyreport.Show();
-//			weeklyreport.Activated += HandleWeeklyReportActivated;
-//			menu.Append(weeklyreport);
+			MenuItem weeklyreport = new MenuItem("Weekly Report");
+			weeklyreport.Show();
+			weeklyreport.Activated += HandleWeeklyReportActivated;
+			menu.Append(weeklyreport);
 			
 			//Exit Menu Item.
 			MenuItem exit = new MenuItem("Exit");
@@ -127,21 +126,11 @@ namespace task_tracker
 			Reports.SendReport(dailyreportmessage);
 		}
 		
-//		static void HandleWeeklyReportActivated(object sender, EventArgs e)
-//		{
-//			Reports weeklyreport = new Reports();
-//			weeklyreportmessage = weeklyreport.CompileWeeklyReport();
-//			Notification notify = new Notification();
-//			notify.Summary = "Weekly Report";
-//			notify.Body = weeklyreportmessage;
-//			notify.AddAction("send", "Send", HandleSendWeekly);
-//			notify.Show();
-//		}
-//				
-//		static void HandleSendWeekly(object sender, ActionArgs e)
-//		{
-//			Reports.SendReport(weeklyreportmessage);
-//		}
+		static void HandleWeeklyReportActivated(object sender, EventArgs e)
+		{
+			WorkReport report = new WorkReport(DateTime.Now);
+			report.Show();
+		}
 		
 		static void HandleSettingsActivated(object sender, EventArgs e)
 		{

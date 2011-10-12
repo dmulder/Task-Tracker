@@ -73,29 +73,79 @@ namespace task_tracker
 			return report;
 		}
 		
-//		internal string CompileWeeklyReport()
-//		{
-//			string report = "";
-//			foreach (Task task in finishedTasks)
-//			{
-//				if (task.Finished.Date == day.Date)
-//				{
-//					report += "- " + task.Summary + " (" + Hours(task.Start, task.Finished) + ").\n";
-//				}
-//			}
-//			return report;
-//		}
+		internal string CompileWeeklyReport(DateTime end)
+		{
+			DateTime last_monday = FindLastMonday(end);
+			last_monday.AddHours(-(last_monday.Hour));
+			string finished = "";
+			string in_progress = "";
+			foreach (Task task in finishedTasks)
+			{
+				if (task.Finished >= last_monday && task.Finished <= end)
+				{
+					finished += "- " + task.Summary + "\n";
+				}
+			}
+			foreach (Task task in tasks.tasks)
+			{
+				bool was_worked = false;
+				foreach (DateTime day in task.Worked)
+				{
+					if (day >= last_monday && day <= end)
+					{
+						was_worked = true;
+					}
+				}
+				if (task.InProgress == true || was_worked)
+				{
+					in_progress += "- " + task.Summary + "\n";
+				}
+			}
+			TaskSettings settings = new TaskSettings();
+			settings = settings.Load();
+			return settings.name + "\n\nRED Issues:\n\nAMBER Issues:\n\nGREEN Issues:\n" + finished + in_progress + "\nPlan for next week:\n" + in_progress + GetPlanned(end);
+		}
+		
+		private string GetPlanned(DateTime end)
+		{
+			string planned = "";
+			foreach (Task task in tasks.tasks)
+			{
+				if (!task.InProgress && task.Priority >= 10 && task.Priority < 15)
+				{
+					planned += "- " + task.Summary + "\n";
+				}
+			}
+			return planned;
+		}
+		
+		private DateTime FindLastMonday(DateTime end)
+		{
+			DateTime monday = end;
+			while (monday.DayOfWeek != DayOfWeek.Monday)
+			{
+				monday = monday.AddDays(-1);
+			}
+			return monday;
+		}
 		
 		static internal void SendReport(string message)
 		{
 			TaskSettings settings = new TaskSettings();
 			settings = settings.Load();
-			MailAddress from_address = new MailAddress(settings.email);
-			MailAddress to_address = new MailAddress(settings.destination);
+			SendReport(settings.email, settings.destination, settings.subject, message);
+		}
+		
+		static internal void SendReport(string from_email, string to_email, string subject, string message)
+		{
+			TaskSettings settings = new TaskSettings();
+			settings = settings.Load();
+			MailAddress from_address = new MailAddress(from_email, settings.name);
+			MailAddress to_address = new MailAddress(to_email);
 			MailMessage mail = new MailMessage(from_address, to_address);
 			DateTime today = DateTime.Now;
 			string date = today.Year + "-" + today.Month + "-" + today.Day;
-			mail.Subject = settings.subject.Replace("<Date>", date);
+			mail.Subject = subject.Replace("<Date>", date);
 			mail.Body = message;
 			SmtpClient smtpclient = new SmtpClient(settings.smtpServer);
 			smtpclient.Credentials = new NetworkCredential(settings.email, settings.password);

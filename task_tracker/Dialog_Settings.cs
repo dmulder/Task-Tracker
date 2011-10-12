@@ -12,6 +12,7 @@ namespace task_tracker
 			TaskSettings settings = new TaskSettings();
 			settings = settings.Load();
 			interval.Text = (settings.interval/1000/60).ToString();
+			name.Text = settings.name;
 			email_address.Text = settings.email;
 			email_subject.Text = settings.subject;
 			email_destination.Text = settings.destination;
@@ -31,6 +32,7 @@ namespace task_tracker
 			try
 			{
 				settings.interval = Int32.Parse(data)*1000*60; //Convert Minutes into milliseconds.
+				settings.name = name.Text;
 				settings.email = email_address.Text;
 				settings.subject = email_subject.Text;
 				settings.destination = email_destination.Text;

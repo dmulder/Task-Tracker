@@ -9,11 +9,17 @@ namespace task_tracker
 		[XmlElement("Interval")]
 		public int interval = 1200000;
 		
+		[XmlElement("Name")]
+		public string name;
+		
 		[XmlElement("Email")]
 		public string email;
 		
 		[XmlElement("Destination")]
 		public string destination;
+		
+		[XmlElement("WeeklyDestination")]
+		public string weeklyDestination;
 		
 		[XmlElement("Subject")]
 		public string subject;
