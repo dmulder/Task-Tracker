@@ -121,6 +121,7 @@ namespace task_tracker
 			this.description = new global::Gtk.TextView ();
 			this.description.CanFocus = true;
 			this.description.Name = "description";
+			this.description.WrapMode = ((global::Gtk.WrapMode)(2));
 			this.GtkScrolledWindow.Add (this.description);
 			this.vbox2.Add (this.GtkScrolledWindow);
 			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.GtkScrolledWindow]));

@@ -148,7 +148,14 @@ namespace task_tracker
 					current = task;
 				}
 			}
-			return current;
+			if (current == null)
+			{
+				return GetPriority();
+			}
+			else
+			{
+				return current;
+			}
 		}
 		
 		internal void SetCurrentTaskFinished()
