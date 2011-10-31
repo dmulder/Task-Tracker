@@ -41,6 +41,12 @@ namespace task_tracker
 			viewTask.Activated += MenuViewTaskActivated;
 			menu.Append(viewTask);
 			
+			//Edit Task Menu Item.
+			MenuItem editTask = new MenuItem("Edit Task");
+			editTask.Show();
+			editTask.Activated += HandleEditTaskActivated;
+			menu.Append(editTask);
+			
 			//Add Task Menu Item.
 			MenuItem addTask = new MenuItem("Add Task");
 			addTask.Show();
@@ -90,6 +96,13 @@ namespace task_tracker
 			menu.Append(exit);
 			
 			menu.Popup(null,null,null,3,Gtk.Global.CurrentEventTime);
+		}
+
+		static void HandleEditTaskActivated (object sender, EventArgs e)
+		{
+			Tasks tasks = new Tasks();
+			tasks.Load();
+			RequestWork.EditTask(tasks.CurrentTask());
 		}
 		
 		static void HandleSelectedReportActivated(object sender, EventArgs e)
@@ -142,7 +155,9 @@ namespace task_tracker
 		{
 			Tasks tasks = new Tasks();
 			tasks.Load();
-			RequestWork.EditTask(tasks.CurrentTask());
+			Task current = tasks.CurrentTask();
+			Notification notify = new Notification(current.Summary, current.Description);
+			notify.Show();
 		}
 		
 		static void MenuSuggestTaskActivated(object sender, EventArgs e)

@@ -28,7 +28,14 @@ namespace task_tracker
 		
 		static void HandleDoNothing(object sender, ActionArgs e)
 		{
-			//Do Nothing. Dumb, I know, but mono throws an exception if I don't have this here.
+			Tasks tasks = new Tasks();
+			tasks.Load();
+			Task current = tasks.CurrentTask();
+			if (!current.IsWorked(DateTime.Now))
+			{
+				current.Worked.Add(DateTime.Now);
+			}
+			tasks.Save();
 		}
 
 		static internal void AddTask(bool InProgress)
@@ -52,8 +59,8 @@ namespace task_tracker
 			{
 				notify = new Notification("Tasks", "This is the next priority task:\n" + task.Summary);
 				notify.AddAction("select", "Select", HandleSelectTask);
-				notify.AddAction("postpone", "Postpone", HandlePostponeTask);
-				notify.AddAction("edit", "Edit Task", HandleEditTask);
+				notify.AddAction("postpone", "Delay", HandlePostponeTask);
+//				notify.AddAction("edit", "Edit Task", HandleEditTask);
 				notify.AddAction("AddTask", "Add Task", HandleAddTask);
 				notify.Timeout = 0;
 				notify.Show();
@@ -100,12 +107,12 @@ namespace task_tracker
 			}
 		}
 		
-		static void HandleEditTask(object sender, ActionArgs e)
-		{
-			Tasks tasks = new Tasks();
-			tasks.Load();
-			EditTask(tasks.GetPriority());
-		}
+//		static void HandleEditTask(object sender, ActionArgs e)
+//		{
+//			Tasks tasks = new Tasks();
+//			tasks.Load();
+//			EditTask(tasks.GetPriority());
+//		}
 		
 		static void HandleAddTask(object sender, ActionArgs e)
 		{
