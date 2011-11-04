@@ -16,7 +16,8 @@ namespace task_tracker
 				notify = new Notification("Tasks", "Are you still working on this task?\n" + current.Summary);
 				notify.AddAction("yes", "Yes", HandleDoNothing);
 				notify.AddAction("suggest", "Suggest Task", HandleSuggestTask);
-				notify.AddAction("AddTask", "Add Task", HandleAddTask);
+//				notify.AddAction("AddTask", "Add Task", HandleAddTask);
+				notify.AddAction("finish", "Finished", HandleFinishedTask);
 				notify.Timeout = 0;
 				notify.Show();
 			}
@@ -36,6 +37,19 @@ namespace task_tracker
 				current.Worked.Add(DateTime.Now);
 			}
 			tasks.Save();
+		}
+		
+		static void HandleFinishedTask(object sender, ActionArgs e)
+		{
+			Tasks tasks = new Tasks();
+			tasks.Load();
+			Task task = tasks.CurrentTask();
+			tasks.SetCurrentTaskFinished();
+			Notification notify = new Notification();
+			notify.Summary = "Task Finished";
+			notify.Body = task.Summary;
+			notify.Show();
+			SuggestTask();
 		}
 
 		static internal void AddTask(bool InProgress)

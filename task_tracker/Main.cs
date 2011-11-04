@@ -17,6 +17,7 @@ namespace task_tracker
 			icon.Visible = true;
 			icon.Tooltip = "Task Tracker";
 			icon.PopupMenu += OnStatusIconPopupMenu;
+			icon.Activate += MenuViewTaskActivated;
 			TaskSettings settings = new TaskSettings();
 			settings = settings.Load();
 			watch = new Timer(settings.interval);
@@ -35,17 +36,17 @@ namespace task_tracker
 		{
 			Menu menu = new Menu();
 			
-			//View Task Menu Item.
-			MenuItem viewTask = new MenuItem("View Task");
-			viewTask.Show();
-			viewTask.Activated += MenuViewTaskActivated;
-			menu.Append(viewTask);
+//			//View Task Menu Item.
+//			MenuItem viewTask = new MenuItem("View Task");
+//			viewTask.Show();
+//			viewTask.Activated += MenuViewTaskActivated;
+//			menu.Append(viewTask);
 			
-			//Edit Task Menu Item.
-			MenuItem editTask = new MenuItem("Edit Task");
-			editTask.Show();
-			editTask.Activated += HandleEditTaskActivated;
-			menu.Append(editTask);
+//			//Edit Task Menu Item.
+//			MenuItem editTask = new MenuItem("Edit Task");
+//			editTask.Show();
+//			editTask.Activated += HandleEditTaskActivated;
+//			menu.Append(editTask);
 			
 			//Add Task Menu Item.
 			MenuItem addTask = new MenuItem("Add Task");
@@ -59,11 +60,11 @@ namespace task_tracker
 			suggestTask.Activated += MenuSuggestTaskActivated;
 			menu.Append(suggestTask);
 			
-			//Finish Task Menu Item.
-			MenuItem finishTask = new MenuItem("Finish Task");
-			finishTask.Show();
-			finishTask.Activated += MenuFinishTaskActivated;
-			menu.Append(finishTask);
+//			//Finish Task Menu Item.
+//			MenuItem finishTask = new MenuItem("Finish Task");
+//			finishTask.Show();
+//			finishTask.Activated += MenuFinishTaskActivated;
+//			menu.Append(finishTask);
 			
 			//Settings Menu Item.
 			MenuItem settings = new MenuItem("Settings");
@@ -77,11 +78,11 @@ namespace task_tracker
 			dailyreport.Activated += HandleDailyReportActivated;
 			menu.Append(dailyreport);
 			
-			//Selected Day Report
-			MenuItem selectedreport = new MenuItem("Select Day to Report");
-			selectedreport.Show();
-			selectedreport.Activated += HandleSelectedReportActivated;
-			menu.Append(selectedreport);
+//			//Selected Day Report
+//			MenuItem selectedreport = new MenuItem("Select Day to Report");
+//			selectedreport.Show();
+//			selectedreport.Activated += HandleSelectedReportActivated;
+//			menu.Append(selectedreport);
 			
 			//Weekly Report
 			MenuItem weeklyreport = new MenuItem("Weekly Report");
@@ -119,6 +120,7 @@ namespace task_tracker
 			notify.Summary = "Daily Report";
 			notify.Body = dailyreportmessage;
 			notify.AddAction("send", "Send", HandleSendDaily);
+			notify.AddAction("select", "Select Date", HandleSelectedReportActivated);
 			notify.Show();
 		}
 		
@@ -157,6 +159,8 @@ namespace task_tracker
 			tasks.Load();
 			Task current = tasks.CurrentTask();
 			Notification notify = new Notification(current.Summary, current.Description);
+			notify.AddAction("edit", "Edit", HandleEditTaskActivated);
+			notify.AddAction("finish", "Mark Finished", MenuFinishTaskActivated);
 			notify.Show();
 		}
 		

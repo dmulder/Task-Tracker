@@ -1,0 +1,9 @@
+[Desktop Entry]
+X-SuSE-translate=true
+Name=TaskTracker
+GenericName=Task Tracker
+Comment=Keep track of your current tasks.
+Exec=task_tracker
+Terminal=false
+Type=Application
+StartupNotify=false
