@@ -1,0 +1,3 @@
+Allow delaying jobs for longer (right now I'm having to edit the config file cause it stops me).
+Suggest a task once I mark the current task as complete.
+Type info from notification panel? That would be nice for making small changes...

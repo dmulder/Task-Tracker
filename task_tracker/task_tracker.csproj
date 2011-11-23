@@ -63,6 +63,7 @@
     <None Include="appointment-new-4.ico" />
     <None Include="COPYING" />
     <None Include="setup" />
+    <None Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
