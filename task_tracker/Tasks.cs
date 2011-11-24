@@ -206,6 +206,56 @@ namespace task_tracker
 				Save();
 			}
 		}
+		
+		internal void Sort()
+		{
+			tasks.Sort(CompareTasks);
+		}
+		
+		internal void Reverse()
+		{
+			tasks.Reverse();
+		}
+		
+		private static int CompareTasks(Task x, Task y)
+		{
+			if (x.Priority == y.Priority)
+			{
+				if (x.Date > y.Date)
+				{
+					return -1;
+				}
+				else if (x.Date < y.Date)
+				{
+					return 1;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+			else if (x.Priority < y.Priority)
+			{
+				return 1;
+			}
+			else if (x.Priority > y.Priority)
+			{
+				return -1;
+			}
+			return 0;
+		}
+		
+		internal Task Find(string summary)
+		{
+			foreach (Task task in tasks)
+			{
+				if (task.Summary == summary)
+				{
+					return task;
+				}
+			}
+			return null;
+		}
 	}
 }
 

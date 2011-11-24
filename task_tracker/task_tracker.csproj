@@ -9,7 +9,6 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>task_tracker</RootNamespace>
     <AssemblyName>Tracker</AssemblyName>
-    <ReleaseVersion>1.5</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,6 +56,8 @@
     <Compile Include="gtk-gui\task_tracker.Select_Date.cs" />
     <Compile Include="WorkReport.cs" />
     <Compile Include="gtk-gui\task_tracker.WorkReport.cs" />
+    <Compile Include="TaskWindow.cs" />
+    <Compile Include="gtk-gui\task_tracker.TaskWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

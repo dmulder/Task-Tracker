@@ -5,8 +5,8 @@ namespace task_tracker
 {
 	public partial class AddTask : Gtk.Dialog
 	{
-		private bool edit = false;
-		private Task task;
+		internal bool edit = false;
+		internal Task task;
 		
 		public AddTask()
 		{

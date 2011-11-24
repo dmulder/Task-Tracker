@@ -36,6 +36,12 @@ namespace task_tracker
 		{
 			Menu menu = new Menu();
 			
+			//View Task List Menu Item.
+			MenuItem viewTaskList = new MenuItem("Task List");
+			viewTaskList.Show();
+			viewTaskList.Activated += HandleViewTaskListActivated;
+			menu.Append(viewTaskList);
+			
 //			//View Task Menu Item.
 //			MenuItem viewTask = new MenuItem("View Task");
 //			viewTask.Show();
@@ -97,6 +103,12 @@ namespace task_tracker
 			menu.Append(exit);
 			
 			menu.Popup(null,null,null,3,Gtk.Global.CurrentEventTime);
+		}
+
+		static void HandleViewTaskListActivated (object sender, EventArgs e)
+		{
+			TaskWindow taskList = new TaskWindow();
+			taskList.Show();
 		}
 
 		static void HandleEditTaskActivated (object sender, EventArgs e)
