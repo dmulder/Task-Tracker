@@ -35,25 +35,7 @@ namespace task_tracker
 		static void OnStatusIconPopupMenu(object sender, EventArgs e)
 		{
 			Menu menu = new Menu();
-			
-			//View Task List Menu Item.
-			MenuItem viewTaskList = new MenuItem("Task List");
-			viewTaskList.Show();
-			viewTaskList.Activated += HandleViewTaskListActivated;
-			menu.Append(viewTaskList);
-			
-//			//View Task Menu Item.
-//			MenuItem viewTask = new MenuItem("View Task");
-//			viewTask.Show();
-//			viewTask.Activated += MenuViewTaskActivated;
-//			menu.Append(viewTask);
-			
-//			//Edit Task Menu Item.
-//			MenuItem editTask = new MenuItem("Edit Task");
-//			editTask.Show();
-//			editTask.Activated += HandleEditTaskActivated;
-//			menu.Append(editTask);
-			
+
 			//Add Task Menu Item.
 			MenuItem addTask = new MenuItem("Add Task");
 			addTask.Show();
@@ -66,12 +48,6 @@ namespace task_tracker
 			suggestTask.Activated += MenuSuggestTaskActivated;
 			menu.Append(suggestTask);
 			
-//			//Finish Task Menu Item.
-//			MenuItem finishTask = new MenuItem("Finish Task");
-//			finishTask.Show();
-//			finishTask.Activated += MenuFinishTaskActivated;
-//			menu.Append(finishTask);
-			
 			//Settings Menu Item.
 			MenuItem settings = new MenuItem("Settings");
 			settings.Show();
@@ -83,13 +59,7 @@ namespace task_tracker
 			dailyreport.Show();
 			dailyreport.Activated += HandleDailyReportActivated;
 			menu.Append(dailyreport);
-			
-//			//Selected Day Report
-//			MenuItem selectedreport = new MenuItem("Select Day to Report");
-//			selectedreport.Show();
-//			selectedreport.Activated += HandleSelectedReportActivated;
-//			menu.Append(selectedreport);
-			
+
 			//Weekly Report
 			MenuItem weeklyreport = new MenuItem("Weekly Report");
 			weeklyreport.Show();
@@ -146,6 +116,7 @@ namespace task_tracker
 			notify.Summary = "Task Finished";
 			notify.Body = task.Summary;
 			notify.Show();
+			RequestWork.SuggestTask();
 		}
 		
 		static void HandleSendDaily(object sender, ActionArgs e)
@@ -173,6 +144,7 @@ namespace task_tracker
 			Notification notify = new Notification(current.Summary, current.Description);
 			notify.AddAction("edit", "Edit", HandleEditTaskActivated);
 			notify.AddAction("finish", "Mark Finished", MenuFinishTaskActivated);
+			notify.AddAction("list", "Tasks", HandleViewTaskListActivated);
 			notify.Show();
 		}
 		

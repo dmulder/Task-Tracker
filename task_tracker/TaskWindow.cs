@@ -34,12 +34,18 @@ namespace task_tracker
 			//Render the cells
 			CellRendererToggle inProgressCell = new CellRendererToggle();
 			inProgress.PackStart(inProgressCell, true);
+			inProgressCell.Xpad = 10;
+			inProgressCell.Ypad = 10;
 			CellRendererText summaryCell = new CellRendererText();
 			summary.PackStart(summaryCell, true);
+			summaryCell.Xpad = 10;
+			summaryCell.Ypad = 10;
 			summaryCell.Editable = true;
 			summaryCell.Edited += HandleSummaryCellEdited;
 			CellRendererText dateCell = new CellRendererText();
 			date.PackStart(dateCell, true);
+			dateCell.Xpad = 10;
+			dateCell.Ypad = 10;
 			
 			inProgress.AddAttribute(inProgressCell, "active", 0);
 			summary.AddAttribute(summaryCell, "text", 1);
@@ -51,7 +57,8 @@ namespace task_tracker
 		private void HandleSummaryCellEdited (object o, EditedArgs args)
 		{
 			TreeIter iter;
-			taskList.GetIter (out iter, new Gtk.TreePath (args.Path));
+			TreePath path = new Gtk.TreePath (args.Path);
+			taskList.GetIter (out iter, path);
 			
 			tasks.Load();
 			string summary = (string) taskList.GetValue(iter, 1);
@@ -131,9 +138,14 @@ namespace task_tracker
 				}
 				Refresh();
 			}
-			else if (args.Event.Key == Gdk.Key.F12)
+		}
+
+		protected void OnEditTaskBtnClicked (object sender, System.EventArgs e)
+		{
+			Task task = SelectedTask();
+			if (task != null)
 			{
-				OpenAddTask(SelectedTask());
+				OpenAddTask(task);
 			}
 		}
 	}

@@ -6,6 +6,7 @@ namespace task_tracker
 	{
 		private global::Gtk.VBox vbox1;
 		private global::Gtk.HBox hbox1;
+		private global::Gtk.Button editTaskBtn;
 		private global::Gtk.Label label1;
 		private global::Gtk.Entry taskSummary;
 		private global::Gtk.Button addTaskButton;
@@ -17,7 +18,7 @@ namespace task_tracker
 			global::Stetic.Gui.Initialize (this);
 			// Widget task_tracker.TaskWindow
 			this.Name = "task_tracker.TaskWindow";
-			this.Title = global::Mono.Unix.Catalog.GetString ("TaskWindow");
+			this.Title = global::Mono.Unix.Catalog.GetString ("Tasks");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Container child task_tracker.TaskWindow.Gtk.Container+ContainerChild
 			this.vbox1 = new global::Gtk.VBox ();
@@ -28,14 +29,26 @@ namespace task_tracker
 			this.hbox1.Name = "hbox1";
 			this.hbox1.Spacing = 6;
 			// Container child hbox1.Gtk.Box+BoxChild
+			this.editTaskBtn = new global::Gtk.Button ();
+			this.editTaskBtn.CanFocus = true;
+			this.editTaskBtn.Name = "editTaskBtn";
+			this.editTaskBtn.UseUnderline = true;
+			this.editTaskBtn.BorderWidth = ((uint)(5));
+			this.editTaskBtn.Label = global::Mono.Unix.Catalog.GetString ("Edit Task");
+			this.hbox1.Add (this.editTaskBtn);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.editTaskBtn]));
+			w1.Position = 0;
+			w1.Expand = false;
+			w1.Fill = false;
+			// Container child hbox1.Gtk.Box+BoxChild
 			this.label1 = new global::Gtk.Label ();
 			this.label1.Name = "label1";
 			this.label1.Xpad = 200;
 			this.hbox1.Add (this.label1);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.label1]));
-			w1.Position = 0;
-			w1.Expand = false;
-			w1.Fill = false;
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.label1]));
+			w2.Position = 1;
+			w2.Expand = false;
+			w2.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.taskSummary = new global::Gtk.Entry ();
 			this.taskSummary.CanFocus = true;
@@ -43,24 +56,25 @@ namespace task_tracker
 			this.taskSummary.IsEditable = true;
 			this.taskSummary.InvisibleChar = '•';
 			this.hbox1.Add (this.taskSummary);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.taskSummary]));
-			w2.Position = 1;
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.taskSummary]));
+			w3.Position = 2;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.addTaskButton = new global::Gtk.Button ();
 			this.addTaskButton.CanFocus = true;
 			this.addTaskButton.Name = "addTaskButton";
 			this.addTaskButton.UseUnderline = true;
+			this.addTaskButton.BorderWidth = ((uint)(5));
 			this.addTaskButton.Label = global::Mono.Unix.Catalog.GetString ("Add Task");
 			this.hbox1.Add (this.addTaskButton);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.addTaskButton]));
-			w3.Position = 2;
-			w3.Expand = false;
-			w3.Fill = false;
-			this.vbox1.Add (this.hbox1);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox1]));
-			w4.Position = 0;
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.addTaskButton]));
+			w4.Position = 3;
 			w4.Expand = false;
 			w4.Fill = false;
+			this.vbox1.Add (this.hbox1);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox1]));
+			w5.Position = 0;
+			w5.Expand = false;
+			w5.Fill = false;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -72,15 +86,16 @@ namespace task_tracker
 			this.taskTreeView.HeadersVisible = false;
 			this.GtkScrolledWindow.Add (this.taskTreeView);
 			this.vbox1.Add (this.GtkScrolledWindow);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.GtkScrolledWindow]));
-			w6.Position = 1;
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.GtkScrolledWindow]));
+			w7.Position = 1;
 			this.Add (this.vbox1);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 646;
+			this.DefaultWidth = 743;
 			this.DefaultHeight = 687;
 			this.Show ();
+			this.editTaskBtn.Clicked += new global::System.EventHandler (this.OnEditTaskBtnClicked);
 			this.addTaskButton.Clicked += new global::System.EventHandler (this.OnAddTaskButtonClicked);
 			this.taskTreeView.KeyPressEvent += new global::Gtk.KeyPressEventHandler (this.OnTaskTreeViewKeyPressEvent);
 		}

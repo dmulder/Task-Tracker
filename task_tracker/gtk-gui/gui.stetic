@@ -615,7 +615,7 @@ This year</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="task_tracker.WorkReport" design-size="513 417">
+  <widget class="Gtk.Dialog" id="task_tracker.WorkReport" design-size="513 428">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Weekly Work Report</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -772,9 +772,9 @@ This year</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Window" id="task_tracker.TaskWindow" design-size="646 687">
+  <widget class="Gtk.Window" id="task_tracker.TaskWindow" design-size="743 687">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">TaskWindow</property>
+    <property name="Title" translatable="yes">Tasks</property>
     <property name="WindowPosition">CenterOnParent</property>
     <child>
       <widget class="Gtk.VBox" id="vbox1">
@@ -785,12 +785,29 @@ This year</property>
             <property name="MemberName" />
             <property name="Spacing">6</property>
             <child>
+              <widget class="Gtk.Button" id="editTaskBtn">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="Type">TextOnly</property>
+                <property name="Label" translatable="yes">Edit Task</property>
+                <property name="UseUnderline">True</property>
+                <property name="BorderWidth">5</property>
+                <signal name="Clicked" handler="OnEditTaskBtnClicked" />
+              </widget>
+              <packing>
+                <property name="Position">0</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
               <widget class="Gtk.Label" id="label1">
                 <property name="MemberName" />
                 <property name="Xpad">200</property>
               </widget>
               <packing>
-                <property name="Position">0</property>
+                <property name="Position">1</property>
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
@@ -804,7 +821,7 @@ This year</property>
                 <property name="InvisibleChar">•</property>
               </widget>
               <packing>
-                <property name="Position">1</property>
+                <property name="Position">2</property>
                 <property name="AutoSize">True</property>
               </packing>
             </child>
@@ -815,10 +832,11 @@ This year</property>
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">Add Task</property>
                 <property name="UseUnderline">True</property>
+                <property name="BorderWidth">5</property>
                 <signal name="Clicked" handler="OnAddTaskButtonClicked" />
               </widget>
               <packing>
-                <property name="Position">2</property>
+                <property name="Position">3</property>
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
