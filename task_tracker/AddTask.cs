@@ -57,7 +57,7 @@ namespace task_tracker
 					worked.Add(date);
 				}
 				tasks.Remove(task);
-				task = new Task(DateTime.Now, summary.Text, description.Buffer.Text, priority.Active, current.Active);
+				task = new Task(DateTime.Now, summary.Text, description.Buffer.Text, priority.Active*5, current.Active);
 				foreach (DateTime date in worked)
 				{
 					task.Worked.Add(date);

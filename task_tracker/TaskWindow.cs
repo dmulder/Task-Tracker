@@ -88,15 +88,15 @@ namespace task_tracker
 				return;
 			
 			Task task = new Task(DateTime.Now, enteredTaskText, "", 0, false);
-			OpenAddTask(task);
+			OpenAddTask(task, false);
 		}
 		
-		private void OpenAddTask(Task task)
+		private void OpenAddTask(Task task, bool edit)
 		{
 			AddTask dialog = new AddTask(task);
-			dialog.edit = false;
-			dialog.Show();
+			dialog.edit = edit;
 			dialog.Close += HandleDialogClose;
+			dialog.Show();
 		}
 
 		void HandleDialogClose (object sender, EventArgs e)
@@ -145,7 +145,7 @@ namespace task_tracker
 			Task task = SelectedTask();
 			if (task != null)
 			{
-				OpenAddTask(task);
+				OpenAddTask(task, true);
 			}
 		}
 	}
