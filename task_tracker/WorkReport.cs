@@ -26,7 +26,7 @@ namespace task_tracker
 		{
 			settings.weeklyDestination = destination_email_address.Text;
 			settings.Save();
-			Reports.SendReport(settings.email, destination_email_address.Text, email_subject.Text, email_body.Buffer.Text);
+			Reports.SendReport(settings.email, destination_email_address.Text, email_subject.Text, email_body.Buffer.Text, DateTime.Now);
 			this.Destroy();
 		}
 

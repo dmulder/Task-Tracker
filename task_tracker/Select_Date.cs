@@ -4,8 +4,9 @@ using Notifications;
 namespace task_tracker
 {
 	public partial class Select_Date : Gtk.Dialog
-	{	
+	{
 		internal static string dailyreportmessage = "";
+		internal static DateTime selected;
 		
 		public Select_Date ()
 		{
@@ -14,7 +15,7 @@ namespace task_tracker
 
 		protected void OnButtonOkClicked (object sender, System.EventArgs e)
 		{
-			DateTime selected = calendar.GetDate();
+			selected = calendar.GetDate();
 			Reports dailyreport = new Reports();
 			dailyreportmessage = dailyreport.CompileDailyReport(selected);
 			Notification notify = new Notification();
@@ -27,7 +28,7 @@ namespace task_tracker
 		
 		static void HandleSendDaily(object sender, ActionArgs e)
 		{
-			Reports.SendReport(dailyreportmessage);
+			Reports.SendReport(dailyreportmessage, selected);
 		}
 
 		protected void OnButtonCancelClicked (object sender, System.EventArgs e)

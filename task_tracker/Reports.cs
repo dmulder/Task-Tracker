@@ -131,19 +131,23 @@ namespace task_tracker
 		
 		static internal void SendReport(string message)
 		{
-			TaskSettings settings = new TaskSettings();
-			settings = settings.Load();
-			SendReport(settings.email, settings.destination, settings.subject, message);
+			SendReport(message, DateTime.Now);
 		}
 		
-		static internal void SendReport(string from_email, string to_email, string subject, string message)
+		static internal void SendReport(string message, DateTime date)
+		{
+			TaskSettings settings = new TaskSettings();
+			settings = settings.Load();
+			SendReport(settings.email, settings.destination, settings.subject, message, date);
+		}
+		
+		static internal void SendReport(string from_email, string to_email, string subject, string message, DateTime today)
 		{
 			TaskSettings settings = new TaskSettings();
 			settings = settings.Load();
 			MailAddress from_address = new MailAddress(from_email, settings.name);
 			MailAddress to_address = new MailAddress(to_email);
 			MailMessage mail = new MailMessage(from_address, to_address);
-			DateTime today = DateTime.Now;
 			string date = today.Year + "-" + today.Month + "-" + today.Day;
 			mail.Subject = subject.Replace("<Date>", date);
 			mail.Body = message;
