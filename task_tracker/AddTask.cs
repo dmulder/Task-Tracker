@@ -73,7 +73,6 @@ namespace task_tracker
 				tasks.tasks.Add(task);
 				tasks.Save();
 			}
-			this.Destroy();
 		}
 
 		protected void OnButtonCancelClicked (object sender, System.EventArgs e)

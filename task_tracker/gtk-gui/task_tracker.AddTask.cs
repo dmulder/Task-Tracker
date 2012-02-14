@@ -23,7 +23,7 @@ namespace task_tracker
 			global::Stetic.Gui.Initialize (this);
 			// Widget task_tracker.AddTask
 			this.Name = "task_tracker.AddTask";
-			this.Title = global::Mono.Unix.Catalog.GetString ("Add a Task");
+			this.Title = global::Mono.Unix.Catalog.GetString ("Task");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Internal child task_tracker.AddTask.VBox
 			global::Gtk.VBox w1 = this.VBox;
@@ -142,8 +142,8 @@ namespace task_tracker
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.UseStock = true;
 			this.buttonCancel.UseUnderline = true;
-			this.buttonCancel.Label = "gtk-cancel";
-			this.AddActionWidget (this.buttonCancel, -6);
+			this.buttonCancel.Label = "gtk-close";
+			this.AddActionWidget (this.buttonCancel, -7);
 			global::Gtk.ButtonBox.ButtonBoxChild w14 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w13 [this.buttonCancel]));
 			w14.Expand = false;
 			w14.Fill = false;
@@ -154,8 +154,8 @@ namespace task_tracker
 			this.buttonOk.Name = "buttonOk";
 			this.buttonOk.UseStock = true;
 			this.buttonOk.UseUnderline = true;
-			this.buttonOk.Label = "gtk-ok";
-			this.AddActionWidget (this.buttonOk, -5);
+			this.buttonOk.Label = "gtk-save";
+			this.AddActionWidget (this.buttonOk, 0);
 			global::Gtk.ButtonBox.ButtonBoxChild w15 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w13 [this.buttonOk]));
 			w15.Position = 1;
 			w15.Expand = false;
@@ -163,8 +163,8 @@ namespace task_tracker
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 650;
-			this.DefaultHeight = 366;
+			this.DefaultWidth = 643;
+			this.DefaultHeight = 783;
 			this.Show ();
 			this.buttonCancel.Clicked += new global::System.EventHandler (this.OnButtonCancelClicked);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);
