@@ -5,3 +5,5 @@ Change 'Edit' option on current task pop up to 'View'.
 Add 'View' task option to pop up reminder.
 Find a way to fix the tray icon text (it says 'notify-sharp' instead of task tracker).
 Make the Add Task window larger (change window name to 'Task').
+
+Modify task tracker to use a sqlite database, instead of using xml. This should be a fairly simple change.
