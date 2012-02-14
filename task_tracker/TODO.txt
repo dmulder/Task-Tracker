@@ -1,2 +1,7 @@
 Type info from notification panel? That would be nice for making small changes...
 Merge with tasque project? It seems doable. We'll see. (already added task window).
+Add a 'Save' button in Edit view. Change to 'Save' and 'Close', instead of 'OK' and 'Cancel'. Maybe change the name of the window (right now it is Add a Task). I use it more for viewing and reading what needs to be done.
+Change 'Edit' option on current task pop up to 'View'.
+Add 'View' task option to pop up reminder.
+Find a way to fix the tray icon text (it says 'notify-sharp' instead of task tracker).
+Make the Add Task window larger (change window name to 'Task').
