@@ -7,26 +7,41 @@ namespace task_tracker
 	{
 		internal static string dailyreportmessage = "";
 		internal static DateTime selected;
+		internal static bool weekly;
 		
-		public Select_Date ()
+		public Select_Date (bool weekly_report)
 		{
+			weekly = weekly_report;
 			this.Build ();
 		}
 
 		protected void OnButtonOkClicked (object sender, System.EventArgs e)
 		{
 			selected = calendar.GetDate();
-			Reports dailyreport = new Reports();
-			dailyreportmessage = dailyreport.CompileDailyReport(selected);
-			Notification notify = new Notification();
-			notify.Summary = "Daily Report " + selected.ToShortDateString();
-			notify.Body = dailyreportmessage;
-			notify.AddAction("send", "Send", HandleSendDaily);
-			notify.Show();
+			if (!weekly)
+			{
+				Daily();
+			}
+			else
+			{
+				WorkReport report = new WorkReport(selected);
+				report.Show();
+			}
 			this.Destroy();
 		}
 		
-		static void HandleSendDaily(object sender, ActionArgs e)
+		static void Daily()
+		{
+				Reports dailyreport = new Reports();
+				dailyreportmessage = dailyreport.CompileDailyReport(selected);
+				Notification notify = new Notification();
+				notify.Summary = "Daily Report " + selected.ToShortDateString();
+				notify.Body = dailyreportmessage;
+				notify.AddAction("send", "Send", HandleSendReport);
+				notify.Show();
+		}
+		
+		static void HandleSendReport(object sender, ActionArgs e)
 		{
 			Reports.SendReport(dailyreportmessage, selected);
 		}

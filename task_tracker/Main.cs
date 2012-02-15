@@ -36,11 +36,17 @@ namespace task_tracker
 		{
 			Menu menu = new Menu();
 
-			//Add Task Menu Item.
-			MenuItem addTask = new MenuItem("Add Task");
-			addTask.Show();
-			addTask.Activated += MenuAddTaskActivated;
-			menu.Append(addTask);
+//			//Add Task Menu Item.
+//			MenuItem addTask = new MenuItem("Add Task");
+//			addTask.Show();
+//			addTask.Activated += MenuAddTaskActivated;
+//			menu.Append(addTask);
+			
+			//Tasks Menu Item.
+			MenuItem tasks = new MenuItem("Tasks");
+			tasks.Show();
+			tasks.Activated += HandleViewTaskListActivated;
+			menu.Append(tasks);
 			
 			//Suggest Task Menu Item.
 			MenuItem suggestTask = new MenuItem("Suggest Task");
@@ -90,7 +96,7 @@ namespace task_tracker
 		
 		static void HandleSelectedReportActivated(object sender, EventArgs e)
 		{
-			Select_Date selected = new Select_Date();
+			Select_Date selected = new Select_Date(false);
 			selected.Show();
 		}
 		
@@ -153,10 +159,10 @@ namespace task_tracker
 			RequestWork.SuggestTask();
 		}
 
-		static void MenuAddTaskActivated(object sender, EventArgs e)
-		{
-			RequestWork.AddTask(false);
-		}
+//		static void MenuAddTaskActivated(object sender, EventArgs e)
+//		{
+//			RequestWork.AddTask(false);
+//		}
 
 		static void HandleShowActivated(object sender, EventArgs e)
 		{

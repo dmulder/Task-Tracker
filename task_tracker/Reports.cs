@@ -96,7 +96,7 @@ namespace task_tracker
 						was_worked = true;
 					}
 				}
-				if (task.InProgress == true || was_worked)
+				if (was_worked)
 				{
 					in_progress += "- " + task.Summary + "\n";
 				}
@@ -111,7 +111,7 @@ namespace task_tracker
 			string planned = "";
 			foreach (Task task in tasks.tasks)
 			{
-				if (!task.InProgress && task.Priority >= 10 && task.Priority < 15)
+				if (!task.InProgress && task.Priority < 10)
 				{
 					planned += "- " + task.Summary + "\n";
 				}

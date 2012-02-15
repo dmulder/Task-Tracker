@@ -15,9 +15,9 @@ namespace task_tracker
 			{
 				notify = new Notification("Tasks", "Are you still working on this task?\n" + current.Summary);
 				notify.AddAction("yes", "Yes", HandleDoNothing);
-				notify.AddAction("suggest", "Suggest Task", HandleSuggestTask);
+//				notify.AddAction("suggest", "No", HandleSuggestTask);
 				notify.AddAction("view", "View", HandleEditTask);
-				notify.AddAction("finish", "Finished", HandleFinishedTask);
+				notify.AddAction("finish", "Finish", HandleFinishedTask);
 				notify.Timeout = 0;
 				notify.Show();
 			}

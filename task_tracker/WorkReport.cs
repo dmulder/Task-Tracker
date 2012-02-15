@@ -17,7 +17,7 @@ namespace task_tracker
 			settings = new TaskSettings();
 			settings = settings.Load();
 			destination_email_address.Text = settings.weeklyDestination;
-			email_subject.Text = "Work Report for week " + (int)(DateTime.Now.DayOfYear*0.142857143) + ", " + DateTime.Now.Year;
+			email_subject.Text = "Work Report for week " + (int)(end.DayOfYear*0.142857143) + ", " + end.Year;
 			Reports report = new Reports();
 			email_body.Buffer.Text = report.CompileWeeklyReport(end);
 		}
@@ -32,6 +32,13 @@ namespace task_tracker
 
 		protected void OnButtonCancelClicked (object sender, System.EventArgs e)
 		{
+			this.Destroy();
+		}
+
+		protected void OnSelectWeekClicked (object sender, System.EventArgs e)
+		{
+			Select_Date selected = new Select_Date(true);
+			selected.Show();
 			this.Destroy();
 		}
 	}

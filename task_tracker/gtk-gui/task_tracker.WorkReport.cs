@@ -13,6 +13,7 @@ namespace task_tracker
 		private global::Gtk.Entry email_subject;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 		private global::Gtk.TextView email_body;
+		private global::Gtk.Button selectWeek;
 		private global::Gtk.Button buttonCancel;
 		private global::Gtk.Button buttonOk;
 		
@@ -107,6 +108,16 @@ namespace task_tracker
 			w11.BorderWidth = ((uint)(5));
 			w11.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
+			this.selectWeek = new global::Gtk.Button ();
+			this.selectWeek.CanFocus = true;
+			this.selectWeek.Name = "selectWeek";
+			this.selectWeek.UseUnderline = true;
+			this.selectWeek.Label = global::Mono.Unix.Catalog.GetString ("Select Week");
+			this.AddActionWidget (this.selectWeek, 0);
+			global::Gtk.ButtonBox.ButtonBoxChild w12 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w11 [this.selectWeek]));
+			w12.Expand = false;
+			w12.Fill = false;
+			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
 			this.buttonCancel.CanFocus = true;
@@ -115,9 +126,10 @@ namespace task_tracker
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w12 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w11 [this.buttonCancel]));
-			w12.Expand = false;
-			w12.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w13 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w11 [this.buttonCancel]));
+			w13.Position = 1;
+			w13.Expand = false;
+			w13.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button ();
 			this.buttonOk.CanDefault = true;
@@ -127,16 +139,17 @@ namespace task_tracker
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-ok";
 			this.AddActionWidget (this.buttonOk, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w13 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w11 [this.buttonOk]));
-			w13.Position = 1;
-			w13.Expand = false;
-			w13.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w14 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w11 [this.buttonOk]));
+			w14.Position = 2;
+			w14.Expand = false;
+			w14.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 513;
 			this.DefaultHeight = 428;
 			this.Show ();
+			this.selectWeek.Clicked += new global::System.EventHandler (this.OnSelectWeekClicked);
 			this.buttonCancel.Clicked += new global::System.EventHandler (this.OnButtonCancelClicked);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);
 		}
