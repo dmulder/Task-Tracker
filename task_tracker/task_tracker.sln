@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task_tracker", "task_tracker.csproj", "{F3E0BDDE-5479-448F-A158-565F2E9FF80F}"
 EndProject
 Global
@@ -16,6 +16,6 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = task_tracker.csproj
-		version = 2.0
+		version = 2.3
 	EndGlobalSection
 EndGlobal
