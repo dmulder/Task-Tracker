@@ -109,6 +109,7 @@ namespace task_tracker
 			notify.Body = dailyreportmessage;
 			notify.AddAction("send", "Send", HandleSendDaily);
 			notify.AddAction("select", "Select Date", HandleSelectedReportActivated);
+			notify.Urgency = Urgency.Critical;
 			notify.Show();
 		}
 		
@@ -121,6 +122,7 @@ namespace task_tracker
 			Notification notify = new Notification();
 			notify.Summary = "Task Finished";
 			notify.Body = task.Summary;
+			notify.Urgency = Urgency.Critical;
 			notify.Show();
 			RequestWork.SuggestTask();
 		}
@@ -151,6 +153,7 @@ namespace task_tracker
 			notify.AddAction("edit", "Edit", HandleEditTaskActivated);
 			notify.AddAction("finish", "Mark Finished", MenuFinishTaskActivated);
 			notify.AddAction("list", "Tasks", HandleViewTaskListActivated);
+			notify.Urgency = Urgency.Critical;
 			notify.Show();
 		}
 		

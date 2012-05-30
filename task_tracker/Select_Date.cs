@@ -32,13 +32,14 @@ namespace task_tracker
 		
 		static void Daily()
 		{
-				Reports dailyreport = new Reports();
-				dailyreportmessage = dailyreport.CompileDailyReport(selected);
-				Notification notify = new Notification();
-				notify.Summary = "Daily Report " + selected.ToShortDateString();
-				notify.Body = dailyreportmessage;
-				notify.AddAction("send", "Send", HandleSendReport);
-				notify.Show();
+			Reports dailyreport = new Reports();
+			dailyreportmessage = dailyreport.CompileDailyReport(selected);
+			Notification notify = new Notification();
+			notify.Summary = "Daily Report " + selected.ToShortDateString();
+			notify.Body = dailyreportmessage;
+			notify.AddAction("send", "Send", HandleSendReport);
+			notify.Urgency = Urgency.Critical;
+			notify.Show();
 		}
 		
 		static void HandleSendReport(object sender, ActionArgs e)
