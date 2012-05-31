@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Mail;
 using System.Net;
+using Notifications;
 
 namespace task_tracker
 {
@@ -143,18 +144,27 @@ namespace task_tracker
 		
 		static internal void SendReport(string from_email, string to_email, string subject, string message, DateTime today)
 		{
-			TaskSettings settings = new TaskSettings();
-			settings = settings.Load();
-			MailAddress from_address = new MailAddress(from_email, settings.name);
-			MailAddress to_address = new MailAddress(to_email);
-			MailMessage mail = new MailMessage(from_address, to_address);
-			string date = today.Year + "-" + today.Month + "-" + today.Day;
-			mail.Subject = subject.Replace("<Date>", date);
-			mail.Body = message;
-			SmtpClient smtpclient = new SmtpClient(settings.smtpServer);
-			smtpclient.Credentials = new NetworkCredential(settings.email, settings.password);
-			smtpclient.Port = 25;
-			smtpclient.Send(mail);
+			try
+			{
+				TaskSettings settings = new TaskSettings();
+				settings = settings.Load();
+				MailAddress from_address = new MailAddress(from_email, settings.name);
+				MailAddress to_address = new MailAddress(to_email);
+				MailMessage mail = new MailMessage(from_address, to_address);
+				string date = today.Year + "-" + today.Month + "-" + today.Day;
+				mail.Subject = subject.Replace("<Date>", date);
+				mail.Body = message;
+				SmtpClient smtpclient = new SmtpClient(settings.smtpServer);
+				smtpclient.Credentials = new NetworkCredential(settings.email, settings.password);
+				smtpclient.Port = 25;
+				smtpclient.Send(mail);
+			}
+			catch (Exception e)
+			{
+				Notification notify = new Notification("Task Tracker: " + e.Message, "");
+				notify.Urgency = Urgency.Critical;
+				notify.Show();
+			}
 		}
 		
 		private int Hours(DateTime start, DateTime finish)
