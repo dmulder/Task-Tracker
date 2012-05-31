@@ -7,3 +7,4 @@ Exec=task_tracker
 Terminal=false
 Type=Application
 StartupNotify=false
+Icon=zoom-in
