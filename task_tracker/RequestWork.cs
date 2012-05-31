@@ -15,10 +15,10 @@ namespace task_tracker
 			{
 				notify = new Notification("Tasks", "Are you still working on this task?\n" + current.Summary);
 				notify.AddAction("yes", "Yes", HandleDoNothing);
-//				notify.AddAction("suggest", "No", HandleSuggestTask);
 				notify.AddAction("view", "View", HandleEditTask);
 				notify.AddAction("finish", "Finish", HandleFinishedTask);
 				notify.Timeout = 0;
+				notify.Urgency = Urgency.Critical;
 				notify.Show();
 			}
 			else
@@ -48,6 +48,7 @@ namespace task_tracker
 			Notification notify = new Notification();
 			notify.Summary = "Task Finished";
 			notify.Body = task.Summary;
+			notify.Urgency = Urgency.Critical;
 			notify.Show();
 			SuggestTask();
 		}
@@ -74,9 +75,9 @@ namespace task_tracker
 				notify = new Notification("Tasks", "This is the next priority task:\n" + task.Summary);
 				notify.AddAction("select", "Select", HandleSelectTask);
 				notify.AddAction("postpone", "Delay", HandlePostponeTask);
-//				notify.AddAction("edit", "Edit Task", HandleEditTask);
 				notify.AddAction("AddTask", "Add Task", HandleAddTask);
 				notify.Timeout = 0;
+				notify.Urgency = Urgency.Critical;
 				notify.Show();
 			}
 			else
@@ -84,6 +85,7 @@ namespace task_tracker
 				notify = new Notification("Tasks", "What are you working on?");
 				notify.AddAction("AddTask", "Add Task", HandleAddTask);
 				notify.Timeout = 0;
+				notify.Urgency = Urgency.Critical;
 				notify.Show();
 			}
 		}
