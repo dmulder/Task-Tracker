@@ -1,6 +1,4 @@
 Type info from notification panel? That would be nice for making small changes...
 Merge with tasque project? It seems doable. We'll see. (already added task window).
 
-Find a way to fix the tray icon text (it says 'notify-sharp' instead of task tracker).
 Modify task tracker to use a sqlite database, instead of using xml. This should be a fairly simple change.
-Fix the menu so it doesn't overlap the tray.

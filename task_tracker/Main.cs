@@ -9,11 +9,12 @@ namespace task_tracker
 	{
 		private static Timer watch;
 		private static string dailyreportmessage;
+		private static StatusIcon icon;
 		
 		public static void Main (string[] args)
 		{
 			Application.Init();
-			StatusIcon icon = StatusIcon.NewFromStock(Stock.Add);
+			icon = StatusIcon.NewFromStock(Stock.ZoomIn);
 			icon.Visible = true;
 			icon.Tooltip = "Task Tracker";
 			icon.PopupMenu += OnStatusIconPopupMenu;
@@ -77,8 +78,15 @@ namespace task_tracker
 			exit.Show();
 			exit.Activated += HandleExit;
 			menu.Append(exit);
-			
-			menu.Popup(null,null,null,3,Gtk.Global.CurrentEventTime);
+			menu.Popup(null, null, MainMenuPosition, 3, Gtk.Global.CurrentEventTime);
+		}
+
+		static void MainMenuPosition(Gtk.Menu menu, out int x, out int y, out bool push_in)
+		{
+			Gdk.ModifierType mod = new Gdk.ModifierType();
+			icon.Screen.RootWindow.GetPointer(out x, out y, out mod);
+			y = menu.Screen.Height - 190;
+			push_in = true;
 		}
 
 		static void HandleViewTaskListActivated (object sender, EventArgs e)
