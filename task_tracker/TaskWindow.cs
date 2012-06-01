@@ -22,13 +22,16 @@ namespace task_tracker
 			TreeViewColumn inProgress = new TreeViewColumn();
 			TreeViewColumn summary = new TreeViewColumn();
 			TreeViewColumn date = new TreeViewColumn();
+			TreeViewColumn id = new TreeViewColumn();
+			id.Visible = false;
 			
 			taskTreeView.HeadersVisible = false;
 			taskTreeView.AppendColumn(inProgress);
 			taskTreeView.AppendColumn(summary);
 			taskTreeView.AppendColumn(date);
+			taskTreeView.AppendColumn(id);
 			
-			taskList = new ListStore(typeof (bool), typeof (string), typeof (string));
+			taskList = new ListStore(typeof (bool), typeof (string), typeof (string), typeof (string));
 			taskTreeView.Model = taskList;
 			
 			//Render the cells
@@ -46,10 +49,15 @@ namespace task_tracker
 			date.PackStart(dateCell, true);
 			dateCell.Xpad = 10;
 			dateCell.Ypad = 10;
+			CellRendererText idCell = new CellRendererText();
+			id.PackStart(idCell, true);
+			dateCell.Xpad = 10;
+			dateCell.Ypad = 10;
 			
 			inProgress.AddAttribute(inProgressCell, "active", 0);
 			summary.AddAttribute(summaryCell, "text", 1);
 			date.AddAttribute(dateCell, "text", 2);
+			id.AddAttribute(idCell, "text", 3);
 			
 			Refresh();
 		}
@@ -61,8 +69,8 @@ namespace task_tracker
 			taskList.GetIter (out iter, path);
 			
 			tasks.Load();
-			string summary = (string) taskList.GetValue(iter, 1);
-			Task task = tasks.Find(summary);
+			int id = Convert.ToInt32((string) taskList.GetValue(iter, 3));
+			Task task = tasks.Find(id);
 			if (task != null)
 			{
 				task.Summary = args.NewText;
@@ -75,8 +83,8 @@ namespace task_tracker
 		{
 			TreeIter iter;
 			taskTreeView.Selection.GetSelected(out iter);
-			string summary = (string) taskList.GetValue(iter, 1);
-			Task task = tasks.Find(summary);
+			int id = Convert.ToInt32((string) taskList.GetValue(iter, 3));
+			Task task = tasks.Find(id);
 			return task;
 		}
 
@@ -115,7 +123,7 @@ namespace task_tracker
 			{
 				if (task.Finished == DateTime.MinValue)
 				{
-					taskList.AppendValues(task.InProgress, task.Summary, task.Date.ToShortDateString());
+					taskList.AppendValues(task.InProgress, task.Summary, task.Date.ToShortDateString(), task.ID.ToString());
 				}
 			}
 		}

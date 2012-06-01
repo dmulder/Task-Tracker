@@ -8,6 +8,9 @@ namespace task_tracker
 {
 	public class Task
 	{
+		[XmlAttribute("ID")]
+		public int ID = 0;
+
 		[XmlAttribute("Date")]
 		public DateTime Date;
 		
@@ -36,6 +39,8 @@ namespace task_tracker
 		
 		public Task(DateTime date, string summary, string description, int priority, bool inprogress)
 		{
+			Random rand = new Random(date.Millisecond);
+			ID = rand.Next(100000000, 999999999); //Generate a random ID.
 			Date = date;
 			Summary = summary;
 			Description = description;
@@ -72,6 +77,14 @@ namespace task_tracker
 		{
 			string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			Load(Path.Combine(path, "tracker/tasks.xml"));
+			// Necessary for backwords compatibility (updates old tasks.xml and adds IDs to each task).
+			foreach (Task task in tasks) {
+				if (task.ID == 0) {
+					Random rand = new Random(task.Date.Millisecond);
+					task.ID = rand.Next(100000000, 999999999); //Generate a random ID.
+				}
+			}
+			this.Save();
 		}
 		
 		internal void Remove(Task task)
@@ -245,11 +258,11 @@ namespace task_tracker
 			return 0;
 		}
 		
-		internal Task Find(string summary)
+		internal Task Find(int id)
 		{
 			foreach (Task task in tasks)
 			{
-				if (task.Summary == summary)
+				if (task.ID == id)
 				{
 					return task;
 				}
