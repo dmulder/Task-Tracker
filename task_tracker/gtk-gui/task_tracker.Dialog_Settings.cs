@@ -235,6 +235,7 @@ namespace task_tracker
 			this.email_password.CanFocus = true;
 			this.email_password.Name = "email_password";
 			this.email_password.IsEditable = true;
+			this.email_password.Visibility = false;
 			this.email_password.InvisibleChar = '•';
 			this.hbox6.Add (this.email_password);
 			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.email_password]));
