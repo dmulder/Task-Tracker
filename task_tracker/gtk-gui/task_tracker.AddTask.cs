@@ -15,6 +15,11 @@ namespace task_tracker
 		private global::Gtk.Label label5;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 		private global::Gtk.TextView description;
+		private global::Gtk.HBox hbox3;
+		private global::Gtk.Button addSubtaskbtn;
+		private global::Gtk.Label label4;
+		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
+		private global::Gtk.TreeView subtaskTreeView;
 		private global::Gtk.Button buttonCancel;
 		private global::Gtk.Button buttonOk;
 		
@@ -129,12 +134,53 @@ namespace task_tracker
 			w1.Add (this.vbox2);
 			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
 			w12.Position = 0;
+			// Container child dialog1_VBox.Gtk.Box+BoxChild
+			this.hbox3 = new global::Gtk.HBox ();
+			this.hbox3.Name = "hbox3";
+			this.hbox3.Spacing = 6;
+			// Container child hbox3.Gtk.Box+BoxChild
+			this.addSubtaskbtn = new global::Gtk.Button ();
+			this.addSubtaskbtn.CanFocus = true;
+			this.addSubtaskbtn.Name = "addSubtaskbtn";
+			this.addSubtaskbtn.UseUnderline = true;
+			this.addSubtaskbtn.Label = global::Mono.Unix.Catalog.GetString ("Add Subtask");
+			this.hbox3.Add (this.addSubtaskbtn);
+			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.addSubtaskbtn]));
+			w13.Position = 0;
+			w13.Expand = false;
+			w13.Fill = false;
+			// Container child hbox3.Gtk.Box+BoxChild
+			this.label4 = new global::Gtk.Label ();
+			this.label4.Name = "label4";
+			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("     Work Breakdown");
+			this.hbox3.Add (this.label4);
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.label4]));
+			w14.Position = 1;
+			w14.Expand = false;
+			w1.Add (this.hbox3);
+			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(w1 [this.hbox3]));
+			w15.Position = 1;
+			w15.Expand = false;
+			w15.Fill = false;
+			// Container child dialog1_VBox.Gtk.Box+BoxChild
+			this.GtkScrolledWindow1 = new global::Gtk.ScrolledWindow ();
+			this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
+			this.GtkScrolledWindow1.ShadowType = ((global::Gtk.ShadowType)(1));
+			// Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
+			this.subtaskTreeView = new global::Gtk.TreeView ();
+			this.subtaskTreeView.CanFocus = true;
+			this.subtaskTreeView.Name = "subtaskTreeView";
+			this.subtaskTreeView.Reorderable = true;
+			this.GtkScrolledWindow1.Add (this.subtaskTreeView);
+			w1.Add (this.GtkScrolledWindow1);
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(w1 [this.GtkScrolledWindow1]));
+			w17.Position = 2;
 			// Internal child task_tracker.AddTask.ActionArea
-			global::Gtk.HButtonBox w13 = this.ActionArea;
-			w13.Name = "dialog1_ActionArea";
-			w13.Spacing = 10;
-			w13.BorderWidth = ((uint)(5));
-			w13.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w18 = this.ActionArea;
+			w18.Name = "dialog1_ActionArea";
+			w18.Spacing = 10;
+			w18.BorderWidth = ((uint)(5));
+			w18.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -144,9 +190,9 @@ namespace task_tracker
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-close";
 			this.AddActionWidget (this.buttonCancel, -7);
-			global::Gtk.ButtonBox.ButtonBoxChild w14 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w13 [this.buttonCancel]));
-			w14.Expand = false;
-			w14.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w19 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w18 [this.buttonCancel]));
+			w19.Expand = false;
+			w19.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button ();
 			this.buttonOk.CanDefault = true;
@@ -156,16 +202,17 @@ namespace task_tracker
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-save";
 			this.AddActionWidget (this.buttonOk, 0);
-			global::Gtk.ButtonBox.ButtonBoxChild w15 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w13 [this.buttonOk]));
-			w15.Position = 1;
-			w15.Expand = false;
-			w15.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w20 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w18 [this.buttonOk]));
+			w20.Position = 1;
+			w20.Expand = false;
+			w20.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 643;
 			this.DefaultHeight = 783;
 			this.Show ();
+			this.addSubtaskbtn.Clicked += new global::System.EventHandler (this.OnAddSubtaskbtnClicked);
 			this.buttonCancel.Clicked += new global::System.EventHandler (this.OnButtonCancelClicked);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);
 		}

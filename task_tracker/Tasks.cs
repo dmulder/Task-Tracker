@@ -6,6 +6,44 @@ using System.Collections.Generic;
 
 namespace task_tracker
 {
+	public class Subtask
+	{
+		[XmlAttribute("ID")]
+		public int ID;
+
+		[XmlElement("Description")]
+		public string Description;
+
+		[XmlAttribute("Finished")]
+		public DateTime Finished;
+
+		[XmlAttribute("Priority")]
+		public int Priority;
+
+		public Subtask () {}
+
+		public Subtask (int id, string description, DateTime finished, int priority)
+		{
+			ID = id;
+			Description = description;
+			Finished = finished;
+			Priority = priority;
+		}
+
+		internal static int CompareSubtasks(Subtask x, Subtask y)
+		{
+			if (x.Priority < y.Priority)
+			{
+				return -1;
+			}
+			else if (x.Priority > y.Priority)
+			{
+				return 1;
+			}
+			return 0;
+		}
+	}
+
 	public class Task
 	{
 		[XmlAttribute("ID")]
@@ -26,27 +64,35 @@ namespace task_tracker
 		[XmlElement("Description")]
 		public string Description;
 		
-		[XmlElement("Priority")]
+		[XmlAttribute("Priority")]
 		public int Priority; //0 Next, 1 Today, 2 This week, 3 This month, 4 This year (all multiplied by 5 for postponement).
 		
-		[XmlElement("InProgress")]
+		[XmlAttribute("InProgress")]
 		public bool InProgress;
 		
 		[XmlArray("Worked")]
 		public List<DateTime> Worked;
+
+		[XmlArray("Subtasks")]
+		public List<Subtask> Subtasks;
 		
 		public Task() {}
 		
 		public Task(DateTime date, string summary, string description, int priority, bool inprogress)
 		{
-			Random rand = new Random(date.Millisecond);
-			ID = rand.Next(100000000, 999999999); //Generate a random ID.
+			ID = Task.GenerateRandomID();
 			Date = date;
 			Summary = summary;
 			Description = description;
 			Priority = priority;
 			InProgress = inprogress;
 			Worked = new List<DateTime>();
+		}
+
+		internal static int GenerateRandomID()
+		{
+			Random rand = new Random (DateTime.Now.Millisecond);
+			return rand.Next (100000000, 999999999); //Generate a random ID.
 		}
 		
 		internal bool IsWorked(DateTime day)
@@ -59,6 +105,19 @@ namespace task_tracker
 				}
 			}
 			return false;
+		}
+
+		internal Subtask FindSubtask(int id)
+		{
+			try
+			{
+				foreach (Subtask subtask in Subtasks)
+				{
+					if (subtask.ID == id)
+						return subtask;
+				}
+			} catch {}
+			return null;
 		}
 	}
 	
@@ -82,8 +141,7 @@ namespace task_tracker
 			foreach (Task task in tasks) {
 				if (task.ID == 0) {
 					changed_ids = true;
-					Random rand = new Random(task.Date.Millisecond);
-					task.ID = rand.Next(100000000, 999999999); //Generate a random ID.
+					task.ID = Task.GenerateRandomID();
 				}
 			}
 			if (changed_ids)

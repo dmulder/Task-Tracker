@@ -51,8 +51,8 @@ namespace task_tracker
 			dateCell.Ypad = 10;
 			CellRendererText idCell = new CellRendererText();
 			id.PackStart(idCell, true);
-			dateCell.Xpad = 10;
-			dateCell.Ypad = 10;
+			idCell.Xpad = 10;
+			idCell.Ypad = 10;
 			
 			inProgress.AddAttribute(inProgressCell, "active", 0);
 			summary.AddAttribute(summaryCell, "text", 1);

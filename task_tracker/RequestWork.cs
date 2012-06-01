@@ -127,7 +127,7 @@ namespace task_tracker
 		{
 			Tasks tasks = new Tasks();
 			tasks.Load();
-			EditTask(tasks.GetPriority());
+			EditTask(tasks.CurrentTask());
 		}
 		
 		static void HandleAddTask(object sender, ActionArgs e)

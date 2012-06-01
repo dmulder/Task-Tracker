@@ -62,6 +62,10 @@ namespace task_tracker
 				if (task.Finished.Date == day.Date)
 				{
 					report += "- " + task.Summary + "\n";
+					foreach (Subtask subtask in task.Subtasks) {
+						if (subtask.Finished != DateTime.MinValue && subtask.Finished.Date == day.Date)
+							report += "    - " + subtask.Description + "\n";
+					}
 				}
 			}
 			foreach (Task task in tasks.tasks)
@@ -69,6 +73,10 @@ namespace task_tracker
 				if (task.InProgress == true || task.IsWorked(day))
 				{
 					report += "- Working on: " + task.Summary + "\n";
+					foreach (Subtask subtask in task.Subtasks) {
+						if (subtask.Finished != DateTime.MinValue && subtask.Finished.Date == day.Date)
+							report += "    - " + subtask.Description + "\n";
+					}
 				}
 			}
 			return report;

@@ -1,4 +1,8 @@
+Features:
 Type info from notification panel? That would be nice for making small changes...
 Merge with tasque project? It seems doable. We'll see. (already added task window).
-
 Modify task tracker to use a sqlite database, instead of using xml. This should be a fairly simple change.
+
+Bugs:
+Fix Task priority so that it isn't reset every time the addTask window is opened.
+Change task priority to just numbers, instead of next/today/month/etc...
