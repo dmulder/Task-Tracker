@@ -78,13 +78,16 @@ namespace task_tracker
 			string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			Load(Path.Combine(path, "tracker/tasks.xml"));
 			// Necessary for backwords compatibility (updates old tasks.xml and adds IDs to each task).
+			bool changed_ids = false;
 			foreach (Task task in tasks) {
 				if (task.ID == 0) {
+					changed_ids = true;
 					Random rand = new Random(task.Date.Millisecond);
 					task.ID = rand.Next(100000000, 999999999); //Generate a random ID.
 				}
 			}
-			this.Save();
+			if (changed_ids)
+				this.Save();
 		}
 		
 		internal void Remove(Task task)
