@@ -65,8 +65,8 @@ namespace task_tracker
 		private void HandleSummaryCellEdited (object o, EditedArgs args)
 		{
 			TreeIter iter;
-			TreePath path = new Gtk.TreePath (args.Path);
-			taskList.GetIter (out iter, path);
+			taskList.GetIterFromString(out iter, args.Path);
+			taskList.SetValue(iter, 1, args.NewText);
 			
 			tasks.Load();
 			int id = Convert.ToInt32((string) taskList.GetValue(iter, 3));
@@ -76,7 +76,6 @@ namespace task_tracker
 				task.Summary = args.NewText;
 			}
 			tasks.Save();
-			Refresh();
 		}
 		
 		private Task SelectedTask()
@@ -99,10 +98,11 @@ namespace task_tracker
 			OpenAddTask(task, false);
 		}
 		
-		private void OpenAddTask(Task task, bool edit)
+		private void OpenAddTask (Task task, bool edit)
 		{
-			AddTask dialog = new AddTask(task);
+			AddTask dialog = new AddTask (task);
 			dialog.edit = edit;
+			//dialog.Close += HandleDialogClose;
 			dialog.Close += HandleDialogClose;
 			dialog.Show();
 		}

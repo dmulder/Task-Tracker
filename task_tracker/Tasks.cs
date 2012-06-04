@@ -90,10 +90,25 @@ namespace task_tracker
 			Subtasks = new List<Subtask> ();
 		}
 
-		internal static int GenerateRandomID()
+		internal static int GenerateRandomID ()
 		{
-			Random rand = new Random (DateTime.Now.Millisecond);
-			return rand.Next (100000000, 999999999); //Generate a random ID.
+			Random rand = new Random (DateTime.Now.Millisecond + DateTime.Now.Second + DateTime.Now.Minute + DateTime.Now.Hour + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year);
+			Tasks tasks = new Tasks ();
+			tasks.Load ();
+			bool done = true;
+			int id;
+			do {
+				id = rand.Next (100000000, 999999999); //Generate a random ID.
+				foreach (Task task in tasks.tasks) {
+					foreach (Subtask subtask in task.Subtasks) {
+						if (subtask.ID == id)
+							done = false;
+					}
+					if (task.ID == id)
+						done = false;
+				}
+			} while (!done);
+			return id;
 		}
 		
 		internal bool IsWorked(DateTime day)
