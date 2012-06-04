@@ -78,15 +78,16 @@ namespace task_tracker
 		
 		public Task() {}
 		
-		public Task(DateTime date, string summary, string description, int priority, bool inprogress)
+		public Task (DateTime date, string summary, string description, int priority, bool inprogress)
 		{
-			ID = Task.GenerateRandomID();
+			ID = Task.GenerateRandomID ();
 			Date = date;
 			Summary = summary;
 			Description = description;
 			Priority = priority;
 			InProgress = inprogress;
-			Worked = new List<DateTime>();
+			Worked = new List<DateTime> ();
+			Subtasks = new List<Subtask> ();
 		}
 
 		internal static int GenerateRandomID()

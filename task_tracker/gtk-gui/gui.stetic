@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <stetic-interface>
   <configuration>
-    <images-root-path>..</images-root-path>
+    <images-root-path>../../task_tracker</images-root-path>
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
     <widget-library name="../../../../../../usr/lib/mono/notify-sharp/notify-sharp.dll" />
-    <widget-library name="../bin/Release/Tracker.exe" internal="true" />
+    <widget-library name="../bin/Debug/Tracker.exe" internal="true" />
   </import>
   <widget class="Gtk.Dialog" id="task_tracker.AddTask" design-size="643 783">
     <property name="MemberName" />

@@ -6,4 +6,3 @@ Modify task tracker to use a sqlite database, instead of using xml. This should 
 Bugs:
 Fix Task priority so that it isn't reset every time the addTask window is opened.
 Change task priority to just numbers, instead of next/today/month/etc...
-After editing and saving a task, the changes don't appear if I immediatly re-open the task from the Task window. After closing the Task window and re-opening, the changes are there.
