@@ -19,6 +19,9 @@ namespace task_tracker
 
 		[XmlAttribute("Priority")]
 		public int Priority;
+		
+		[XmlArray("Worked")]
+		public List<DateTime> Worked;
 
 		public Subtask () {}
 
@@ -28,6 +31,7 @@ namespace task_tracker
 			Description = description;
 			Finished = finished;
 			Priority = priority;
+			Worked = new List<DateTime> ();
 		}
 
 		internal static int CompareSubtasks(Subtask x, Subtask y)
@@ -41,6 +45,20 @@ namespace task_tracker
 				return 1;
 			}
 			return 0;
+		}
+		
+		internal bool IsWorked (DateTime day)
+		{
+			try {
+				foreach (DateTime worked in Worked) {
+					if (worked.ToShortDateString () == day.ToShortDateString ()) {
+						return true;
+					}
+				}
+				return false;
+			} catch {
+				return false;
+			}
 		}
 	}
 

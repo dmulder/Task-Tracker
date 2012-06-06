@@ -33,42 +33,62 @@ namespace task_tracker
 
 		void PopulateWindow ()
 		{
-			TreeViewColumn finished = new TreeViewColumn();
+			TreeViewColumn finished = new TreeViewColumn ();
 			finished.Title = "Finished";
-			TreeViewColumn description = new TreeViewColumn();
+			TreeViewColumn description = new TreeViewColumn ();
 			description.Title = "Description";
-			TreeViewColumn id = new TreeViewColumn();
+			TreeViewColumn inProgress = new TreeViewColumn ();
+			inProgress.Title = "In Progress";
+			TreeViewColumn id = new TreeViewColumn ();
 			id.Visible = false;
 
 			subtaskTreeView.HeadersVisible = true;
-			subtaskTreeView.AppendColumn(finished);
-			subtaskTreeView.AppendColumn(description);
-			subtaskTreeView.AppendColumn(id);
+			subtaskTreeView.AppendColumn (finished);
+			subtaskTreeView.AppendColumn (description);
+			subtaskTreeView.AppendColumn (inProgress);
+			subtaskTreeView.AppendColumn (id);
 
-			subtaskList = new ListStore(typeof (bool), typeof (string), typeof (string));
+			subtaskList = new ListStore (typeof(bool), typeof(string), typeof(bool), typeof(string));
 			subtaskTreeView.Model = subtaskList;
 
 			//Render the cells
-			CellRendererToggle finishedCell = new CellRendererToggle();
-			finished.PackStart(finishedCell, true);
+			CellRendererToggle finishedCell = new CellRendererToggle ();
+			finished.PackStart (finishedCell, true);
 			finishedCell.Xpad = 10;
 			finishedCell.Ypad = 10;
 			finishedCell.Activatable = true;
 			finishedCell.Toggled += HandleFinishedCellToggled;
-			CellRendererText descriptionCell = new CellRendererText();
-			description.PackStart(descriptionCell, true);
+			CellRendererText descriptionCell = new CellRendererText ();
+			description.PackStart (descriptionCell, true);
 			descriptionCell.Xpad = 10;
 			descriptionCell.Ypad = 10;
 			descriptionCell.Editable = true;
 			descriptionCell.Edited += HandleDescriptionCellEdited;
-			CellRendererText idCell = new CellRendererText();
-			id.PackStart(idCell, true);
+			CellRendererToggle inProgressCell = new CellRendererToggle ();
+			inProgress.PackStart (inProgressCell, true);
+			inProgressCell.Xpad = 10;
+			inProgressCell.Ypad = 10;
+			inProgressCell.Activatable = true;
+			inProgressCell.Toggled += HandleInProgressCellToggled;
+			CellRendererText idCell = new CellRendererText ();
+			id.PackStart (idCell, true);
 			idCell.Xpad = 10;
 			idCell.Ypad = 10;
 
-			finished.AddAttribute(finishedCell, "active", 0);
-			description.AddAttribute(descriptionCell, "text", 1);
-			id.AddAttribute(idCell, "text", 2);
+			finished.AddAttribute (finishedCell, "active", 0);
+			description.AddAttribute (descriptionCell, "text", 1);
+			inProgress.AddAttribute (inProgressCell, "active", 2);
+			id.AddAttribute(idCell, "text", 3);
+		}
+
+		void HandleInProgressCellToggled (object o, ToggledArgs args)
+		{
+			TreeIter iter;
+			subtaskList.GetIterFromString (out iter, args.Path);
+			if ((bool)subtaskList.GetValue (iter, 2))
+				subtaskList.SetValue (iter, 2, false);
+			else
+				subtaskList.SetValue (iter, 2, true);
 		}
 
 		void HandleFinishedCellToggled (object o, ToggledArgs args)
@@ -95,7 +115,7 @@ namespace task_tracker
 
 			foreach (Subtask subtask in task.Subtasks)
 			{
-				subtaskList.AppendValues(subtask.Finished == DateTime.MinValue ? false : true, subtask.Description, subtask.ID.ToString());
+				subtaskList.AppendValues(subtask.Finished == DateTime.MinValue ? false : true, subtask.Description, subtask.IsWorked(DateTime.Now), subtask.ID.ToString());
 			}
 		}
 
@@ -157,7 +177,7 @@ namespace task_tracker
 			bool valid = subtaskList.GetIterFirst(out iter);
 			int priority = 0;
 			while (valid) {
-				int id = Convert.ToInt32((string) subtaskList.GetValue(iter, 2));
+				int id = Convert.ToInt32((string) subtaskList.GetValue(iter, 3));
 				Subtask subtask = task.FindSubtask(id);
 				bool formFinished = (bool) subtaskList.GetValue(iter, 0);
 				DateTime date;
@@ -173,7 +193,16 @@ namespace task_tracker
 						date = DateTime.Now;
 					else
 						date = DateTime.MinValue;
-				subtasks.Add(new Subtask(id, (string) subtaskList.GetValue(iter, 1), date, priority));
+				Subtask newsubtask = new Subtask(id, (string) subtaskList.GetValue(iter, 1), date, priority);
+				try { // Bail out if the current subtask has no Worked
+					foreach (DateTime time in subtask.Worked) {
+						newsubtask.Worked.Add(time);
+					}
+				} catch {}
+				if ((bool) subtaskList.GetValue(iter, 2) && !newsubtask.IsWorked(DateTime.Now)) {
+					newsubtask.Worked.Add(DateTime.Now);
+				}
+				subtasks.Add(newsubtask);
 				priority++;
 				valid = subtaskList.IterNext(ref iter);
 			}
