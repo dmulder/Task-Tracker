@@ -110,12 +110,13 @@ namespace task_tracker
 
 		internal static int GenerateRandomID ()
 		{
-			Random rand = new Random (DateTime.Now.Millisecond + DateTime.Now.Second + DateTime.Now.Minute + DateTime.Now.Hour + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year);
+			Random rand;
 			Tasks tasks = new Tasks ();
 			tasks.Load ();
 			bool done = true;
 			int id;
 			do {
+				rand = new Random (DateTime.Now.Millisecond + DateTime.Now.Second + DateTime.Now.Minute + DateTime.Now.Hour + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year); // So we don't get stuck in an infinite loop
 				id = rand.Next (100000000, 999999999); //Generate a random ID.
 				foreach (Task task in tasks.tasks) {
 					foreach (Subtask subtask in task.Subtasks) {

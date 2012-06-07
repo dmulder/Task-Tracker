@@ -4,6 +4,4 @@ Merge with tasque project? It seems doable. We'll see. (already added task windo
 Modify task tracker to use a sqlite database, instead of using xml. This should be a fairly simple change.
 
 Bugs:
-Fix Task priority so that it isn't reset every time the addTask window is opened.
 Change task priority to just numbers, instead of next/today/month/etc...
-If I change the title of a task, the subtasks are all automatically marked as finished. The task start date also changes to today.

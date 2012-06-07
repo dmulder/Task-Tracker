@@ -157,7 +157,7 @@ namespace task_tracker
 			Tasks tasks = new Tasks();
 			tasks.Load();
 			Task current = tasks.CurrentTask();
-			Notification notify = new Notification(current.Summary, current.Description);
+			Notification notify = new Notification(current.Summary, current.Description.Substring(0, (current.Description.Length > 1000 ? 1000 : current.Description.Length)));
 			notify.AddAction("edit", "Edit", HandleEditTaskActivated);
 			notify.AddAction("finish", "Mark Finished", MenuFinishTaskActivated);
 			notify.AddAction("list", "Tasks", HandleViewTaskListActivated);

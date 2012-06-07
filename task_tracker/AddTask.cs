@@ -28,7 +28,18 @@ namespace task_tracker
 			edit = true;
 			summary.Text = task.Summary;
 			description.Buffer.Text = task.Description;
-			priority.Active = task.Priority/5;
+			int prio = 0;
+			if (task.Priority < 5)
+				prio = 0;
+			else if (task.Priority < 10)
+				prio = 1;
+			else if (task.Priority < 15)
+				prio = 2;
+			else if (task.Priority < 20)
+				prio = 3;
+			else if (task.Priority < 25)
+				prio = 4;
+			priority.Active = prio;
 		}
 
 		void PopulateWindow ()
@@ -145,13 +156,14 @@ namespace task_tracker
 			}
 			else
 			{
+				DateTime start = task.Date;
 				List<DateTime> worked = new List<DateTime>();
 				foreach (DateTime date in task.Worked)
 				{
 					worked.Add(date);
 				}
 				tasks.Remove(task);
-				task = new Task(DateTime.Now, summary.Text, description.Buffer.Text, priority.Active*5, current.Active);
+				task = new Task(start, summary.Text, description.Buffer.Text, priority.Active*5, current.Active);
 				foreach (DateTime date in worked)
 				{
 					task.Worked.Add(date);
