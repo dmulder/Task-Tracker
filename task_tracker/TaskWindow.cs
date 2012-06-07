@@ -102,8 +102,7 @@ namespace task_tracker
 		{
 			AddTask dialog = new AddTask (task);
 			dialog.edit = edit;
-			//dialog.Close += HandleDialogClose;
-			dialog.Close += HandleDialogClose;
+			dialog.Destroyed += HandleDialogClose;
 			dialog.Show();
 		}
 
