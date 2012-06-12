@@ -67,6 +67,7 @@
     <None Include="setup" />
     <None Include="TODO.txt" />
     <None Include="notify-sharp.dll" />
+    <None Include=".version" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
