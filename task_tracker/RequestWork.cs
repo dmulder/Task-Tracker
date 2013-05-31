@@ -37,12 +37,17 @@ namespace task_tracker
 				current.Worked.Add(DateTime.Now);
 			}
 			tasks.Save();
+			SetPidginStatus("Busy", current.Summary);
+		}
+
+		static void SetPidginStatus(string status, string message)
+		{
 			try
 			{
 				System.Diagnostics.Process proc = new System.Diagnostics.Process();
 				proc.EnableRaisingEvents = false; 
 				proc.StartInfo.FileName = "purple-remote";
-				proc.StartInfo.Arguments = String.Format("\"setstatus?status=Available&message={0}\"", current.Summary);
+				proc.StartInfo.Arguments = String.Format("\"setstatus?status={0}&message={1}\"", status, message);
 				proc.Start();
 			} catch (Exception i) {}
 		}
@@ -74,6 +79,7 @@ namespace task_tracker
 		
 		static internal void SuggestTask()
 		{
+			SetPidginStatus("Available", "");
 			Notification notify;
 			Tasks tasks = new Tasks();
 			tasks.Load();
@@ -103,6 +109,8 @@ namespace task_tracker
 			Tasks tasks = new Tasks();
 			tasks.Load();
 			tasks.FinishCurrentTaskAndStartPriorityTask();
+			Task current = tasks.CurrentTask();
+			SetPidginStatus("Busy", current.Summary);
 		}
 		
 		static void HandlePostponeTask(object sender, ActionArgs e)
