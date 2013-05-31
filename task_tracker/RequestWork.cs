@@ -37,6 +37,14 @@ namespace task_tracker
 				current.Worked.Add(DateTime.Now);
 			}
 			tasks.Save();
+			try
+			{
+				System.Diagnostics.Process proc = new System.Diagnostics.Process();
+				proc.EnableRaisingEvents = false; 
+				proc.StartInfo.FileName = "purple-remote";
+				proc.StartInfo.Arguments = String.Format("\"setstatus?status=Available&message={0}\"", current.Summary);
+				proc.Start();
+			} catch (Exception i) {}
 		}
 		
 		static void HandleFinishedTask(object sender, ActionArgs e)

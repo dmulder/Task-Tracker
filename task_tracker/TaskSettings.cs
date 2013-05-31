@@ -23,6 +23,9 @@ namespace task_tracker
 		
 		[XmlElement("Subject")]
 		public string subject;
+
+		[XmlElement("SMTPPort")]
+		public string smtpport;
 		
 		[XmlElement("SMTPServer")]
 		public string smtpServer;

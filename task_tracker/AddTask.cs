@@ -192,7 +192,7 @@ namespace task_tracker
 				int id = Convert.ToInt32((string) subtaskList.GetValue(iter, 3));
 				Subtask subtask = task.FindSubtask(id);
 				bool formFinished = (bool) subtaskList.GetValue(iter, 0);
-				DateTime date;
+				DateTime date = DateTime.MinValue;
 				if (subtask != null)
 					if (subtask.Finished != DateTime.MinValue && formFinished)
 						date = subtask.Finished;
@@ -203,8 +203,6 @@ namespace task_tracker
 				else
 					if (formFinished)
 						date = DateTime.Now;
-					else
-						date = DateTime.MinValue;
 				Subtask newsubtask = new Subtask(id, (string) subtaskList.GetValue(iter, 1), date, priority);
 				try { // Bail out if the current subtask has no Worked
 					foreach (DateTime time in subtask.Worked) {

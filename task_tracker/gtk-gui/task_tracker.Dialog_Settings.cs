@@ -24,6 +24,9 @@ namespace task_tracker
 		private global::Gtk.HBox hbox4;
 		private global::Gtk.Label label4;
 		private global::Gtk.Entry smtp_server;
+		private global::Gtk.HBox hbox8;
+		private global::Gtk.Label label10;
+		private global::Gtk.Entry smtp_port;
 		private global::Gtk.HBox hbox6;
 		private global::Gtk.Label label7;
 		private global::Gtk.Entry email_password;
@@ -218,6 +221,33 @@ namespace task_tracker
 			w20.Expand = false;
 			w20.Fill = false;
 			// Container child vbox3.Gtk.Box+BoxChild
+			this.hbox8 = new global::Gtk.HBox ();
+			this.hbox8.Name = "hbox8";
+			this.hbox8.Spacing = 6;
+			// Container child hbox8.Gtk.Box+BoxChild
+			this.label10 = new global::Gtk.Label ();
+			this.label10.Name = "label10";
+			this.label10.LabelProp = global::Mono.Unix.Catalog.GetString ("SMTP Port:");
+			this.hbox8.Add (this.label10);
+			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.hbox8 [this.label10]));
+			w21.Position = 0;
+			w21.Expand = false;
+			w21.Fill = false;
+			// Container child hbox8.Gtk.Box+BoxChild
+			this.smtp_port = new global::Gtk.Entry ();
+			this.smtp_port.CanFocus = true;
+			this.smtp_port.Name = "smtp_port";
+			this.smtp_port.IsEditable = true;
+			this.smtp_port.InvisibleChar = '●';
+			this.hbox8.Add (this.smtp_port);
+			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox8 [this.smtp_port]));
+			w22.Position = 1;
+			this.vbox3.Add (this.hbox8);
+			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox8]));
+			w23.Position = 7;
+			w23.Expand = false;
+			w23.Fill = false;
+			// Container child vbox3.Gtk.Box+BoxChild
 			this.hbox6 = new global::Gtk.HBox ();
 			this.hbox6.Name = "hbox6";
 			this.hbox6.Spacing = 6;
@@ -226,10 +256,10 @@ namespace task_tracker
 			this.label7.Name = "label7";
 			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("Email Password:");
 			this.hbox6.Add (this.label7);
-			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.label7]));
-			w21.Position = 0;
-			w21.Expand = false;
-			w21.Fill = false;
+			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.label7]));
+			w24.Position = 0;
+			w24.Expand = false;
+			w24.Fill = false;
 			// Container child hbox6.Gtk.Box+BoxChild
 			this.email_password = new global::Gtk.Entry ();
 			this.email_password.CanFocus = true;
@@ -238,33 +268,33 @@ namespace task_tracker
 			this.email_password.Visibility = false;
 			this.email_password.InvisibleChar = '•';
 			this.hbox6.Add (this.email_password);
-			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.email_password]));
-			w22.Position = 1;
+			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.email_password]));
+			w25.Position = 1;
 			// Container child hbox6.Gtk.Box+BoxChild
 			this.label8 = new global::Gtk.Label ();
 			this.label8.Name = "label8";
 			this.label8.LabelProp = global::Mono.Unix.Catalog.GetString ("Warning: Plain Text!");
 			this.hbox6.Add (this.label8);
-			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.label8]));
-			w23.Position = 2;
-			w23.Expand = false;
-			w23.Fill = false;
+			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.label8]));
+			w26.Position = 2;
+			w26.Expand = false;
+			w26.Fill = false;
 			this.vbox3.Add (this.hbox6);
-			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox6]));
-			w24.Position = 7;
-			w24.Expand = false;
-			w24.Fill = false;
+			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox6]));
+			w27.Position = 8;
+			w27.Expand = false;
+			w27.Fill = false;
 			w1.Add (this.vbox3);
-			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox3]));
-			w25.Position = 0;
-			w25.Expand = false;
-			w25.Fill = false;
+			global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox3]));
+			w28.Position = 0;
+			w28.Expand = false;
+			w28.Fill = false;
 			// Internal child task_tracker.Dialog_Settings.ActionArea
-			global::Gtk.HButtonBox w26 = this.ActionArea;
-			w26.Name = "dialog1_ActionArea";
-			w26.Spacing = 10;
-			w26.BorderWidth = ((uint)(5));
-			w26.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w29 = this.ActionArea;
+			w29.Name = "dialog1_ActionArea";
+			w29.Spacing = 10;
+			w29.BorderWidth = ((uint)(5));
+			w29.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -274,9 +304,9 @@ namespace task_tracker
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w27 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w26 [this.buttonCancel]));
-			w27.Expand = false;
-			w27.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w30 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w29 [this.buttonCancel]));
+			w30.Expand = false;
+			w30.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button ();
 			this.buttonOk.CanDefault = true;
@@ -286,15 +316,15 @@ namespace task_tracker
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-ok";
 			this.AddActionWidget (this.buttonOk, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w28 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w26 [this.buttonOk]));
-			w28.Position = 1;
-			w28.Expand = false;
-			w28.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w31 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w29 [this.buttonOk]));
+			w31.Position = 1;
+			w31.Expand = false;
+			w31.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 417;
-			this.DefaultHeight = 365;
+			this.DefaultWidth = 432;
+			this.DefaultHeight = 381;
 			this.Show ();
 			this.buttonCancel.Clicked += new global::System.EventHandler (this.OnButtonCancelClicked);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);

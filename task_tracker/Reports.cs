@@ -170,7 +170,8 @@ namespace task_tracker
 				mail.Body = message;
 				SmtpClient smtpclient = new SmtpClient(settings.smtpServer);
 				smtpclient.Credentials = new NetworkCredential(settings.email, settings.password);
-				smtpclient.Port = 25;
+				smtpclient.EnableSsl = true;
+				smtpclient.Port = Convert.ToInt32(settings.smtpport);
 				smtpclient.Send(mail);
 			}
 			catch (Exception e)
