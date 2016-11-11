@@ -49,7 +49,7 @@ namespace task_tracker
 				proc.StartInfo.FileName = "purple-remote";
 				proc.StartInfo.Arguments = String.Format("\"setstatus?status={0}&message={1}\"", status, message);
 				proc.Start();
-			} catch (Exception i) {}
+			} catch {}
 		}
 		
 		static void HandleFinishedTask(object sender, ActionArgs e)

@@ -56,8 +56,9 @@ namespace task_tracker
 		
 		internal void Save()
 		{
-			string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-			Save(Path.Combine(path, "tracker/settings.xml"));
+			string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "tracker");
+			Directory.CreateDirectory(path);
+			Save(Path.Combine(path, "settings.xml"));
 		}
 		
 		private void Save(string path)
