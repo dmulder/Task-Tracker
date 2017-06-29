@@ -5,7 +5,6 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../../../../../../usr/lib/mono/notify-sharp/notify-sharp.dll" />
     <widget-library name="../bin/Debug/Tracker.exe" internal="true" />
   </import>
   <widget class="Gtk.Dialog" id="task_tracker.AddTask" design-size="830 863">

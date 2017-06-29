@@ -10,6 +10,7 @@
     <RootNamespace>task_tracker</RootNamespace>
     <AssemblyName>Tracker</AssemblyName>
     <ReleaseVersion>3</ReleaseVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>True</DebugSymbols>
@@ -37,12 +38,10 @@
     <Reference Include="Mono.Posix" />
     <Reference Include="System.Xml" />
     <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="notify-sharp">
-      <HintPath>..\..\..\..\..\usr\lib\mono\notify-sharp\notify-sharp.dll</HintPath>
-    </Reference>
     <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Private>False</Private>
     </Reference>
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -69,7 +68,6 @@
     <None Include="COPYING" />
     <None Include="setup" />
     <None Include="TODO.txt" />
-    <None Include="notify-sharp.dll" />
     <None Include=".version" />
   </ItemGroup>
   <ItemGroup>
@@ -81,5 +79,11 @@
     <Content Include="task_tracker.desktop">
       <DeployService-TargetDirectoryId>Linux.DesktopApplications</DeployService-TargetDirectoryId>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\notify-sharp\notify-sharp.csproj">
+      <Project>{34D1BDF4-0ECB-4DC9-AA9D-27D1121B733B}</Project>
+      <Name>notify-sharp</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

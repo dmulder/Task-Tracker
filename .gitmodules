@@ -1,0 +1,3 @@
+[submodule "notify-sharp"]
+	path = notify-sharp
+	url = https://github.com/hyperair/notify-sharp.git
