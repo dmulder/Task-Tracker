@@ -2,7 +2,7 @@
 try:
     import pynotify, pystray
 except ImportError:
-    print 'Import failed. Package install required.\nsudo pip2 install pynotify pystray'
+    print 'Import failed. Package install required.\nsudo pip2 install python-xlib pynotify pystray'
     exit(1)
 import sys, argparse, os.path, re, time
 from datetime import datetime
@@ -14,6 +14,15 @@ def str_to_datetime(line):
         ret = None
     return ret
 
+def edit_task(task_id):
+    pass
+
+def finish_task(task_id):
+    pass
+
+def show_tasks(task_id):
+    pass
+
 class tracker_ui:
     def __init__(self):
         pynotify.init('tracker')
@@ -23,6 +32,11 @@ class tracker_ui:
     def __show_selected(self, sleep=1200):
         selected = self.data.selected()
         notice = pynotify.Notification(selected['Summary'], selected['Description'])
+        # Edit, Mark Finished, Tasks
+        notice.add_action(selected['ID'], 'Edit', edit_task)
+        notice.add_action(selected['ID'], 'Mark Finished', finish_task)
+        notice.add_action(selected['ID'], 'Tasks', show_tasks)
+        notice.set_urgency(pynotify.URGENCY_CRITICAL)
         notice.show()
 
 class tracker:
@@ -45,7 +59,8 @@ class tracker:
 
     def __element(self, task):
         data = { key : task.find(key).text for key in ['Summary', 'Description'] }
-        data['Priority'] = task.attrib['Priority']
+        for key in ['Priority', 'ID']:
+            data[key] = task.attrib[key]
         data['InProgress'] = task.attrib['InProgress'] == 'true'
         data['Date'] = str_to_datetime(task.attrib['Date'])
         for key in ['Start', 'Finished']:
