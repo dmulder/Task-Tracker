@@ -1,0 +1,5 @@
+#!/usr/bin/python
+import sys, argparse, os.path, datetime, re
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Task Tracker: Keeps track of current tasks, nags user to stay on track", formatter_class=argparse.RawDescriptionHelpFormatter)
