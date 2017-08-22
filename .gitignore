@@ -8,3 +8,4 @@ missing
 Makefile
 config.log
 config.status
+src/task-tracker
