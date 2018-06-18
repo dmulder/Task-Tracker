@@ -1,4 +1,6 @@
 #!/usr/bin/python
+
+import PIL.Image
 try:
     import pynotify, pystray
 except ImportError:
@@ -23,18 +25,74 @@ def finish_task(task_id):
 def show_tasks(task_id):
     pass
 
+def checkstat(icon):
+    try:
+        while True:
+            commandline = sys.stdin.readline()
+            command = commandline.strip().split(':')
+            found = False
+            if command[0] in ['tray_exit', '']:
+                icon.stop()
+                break
+ 
+            if command[0] == 'tray_iconpath':
+                try:
+                    icons[command[1]] = PIL.Image.open(command[2])
+                except FileNotFoundError:
+                    perr("File {} not found\n".format(command[2]))
+ 
+                found = True
+ 
+            if command[0] == 'tray_icon':
+                try:
+                    icon.icon = icon.icons[command[1]]
+                except KeyError:
+                    perr("Icon name {} not set. Use seticon first\n".format(
+                                                                    command[1]
+                                                                    ))
+                found = True
+ 
+            if command[0] == 'tray_show':
+                icon.visible = True
+                found = True
+ 
+            if command[0] == 'tray_hide':
+                icon.visible = False
+                found = True
+ 
+            if command[0] == 'tray_warn':
+                icon.warnings = command[1].lower() in ['1',
+                                                       'true',
+                                                       'yes',
+                                                       'on']
+                found = True
+    except:
+        pass
+
 class tracker_ui:
     def __init__(self):
         pynotify.init('tracker')
         self.data = tracker()
-        self.__show_selected()
+        #self.__show_selected()
+        icons = {
+            'default': PIL.Image.open('/usr/share/icons/gnome/24x24/apps/xfwm4.png')
+        }
+        self.tray = pystray.Icon(name='tracker', icon=icons['default'], title='tracker')
+        self.tray.icons = icons
+        self.tray.warnings = True
+        try:
+            self.tray.run(checkstat)
+        except:
+            pass
+        finally:
+            self.tray.stop()
 
     def __show_selected(self, sleep=1200):
         selected = self.data.selected()
         notice = pynotify.Notification(selected['Summary'], selected['Description'])
         # Edit, Mark Finished, Tasks
         notice.add_action(selected['ID'], 'Edit', edit_task)
-        notice.add_action(selected['ID'], 'Mark Finished', finish_task)
+        notice.add_action(selected['ID'], 'Done', finish_task)
         notice.add_action(selected['ID'], 'Tasks', show_tasks)
         notice.set_urgency(pynotify.URGENCY_CRITICAL)
         notice.show()
